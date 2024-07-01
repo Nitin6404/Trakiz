@@ -1,0 +1,7 @@
+/* TrakizIcon.module.css */
+.trakizLogo {
+    width: 64px;  /* Set the desired width */
+    height: auto;  /* Maintain aspect ratio */
+    object-fit: contain;  /* Ensure the image fits within the container without being distorted */
+  }
+  
