@@ -70,7 +70,7 @@ export function ImageSection() {
 }
 
 
-function ListTodoIcon(props) {
+function ListTodoIcon(props: any) {
   return (
     <Image
       src="/todoList.png"
@@ -83,7 +83,7 @@ function ListTodoIcon(props) {
 }
 
 
-function TimerIcon(props) {
+function TimerIcon(props: any) {
   return (
     <Image
       src="/timerIcon.png"
@@ -96,7 +96,7 @@ function TimerIcon(props) {
 }
 
 
-function WaypointsIcon(props) {
+function WaypointsIcon(props: any) {
   return (
     <Image
       src="/upArrow.png"
