@@ -117,7 +117,7 @@ export function Main() {
                   What is Trakiz ?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Ever wished you had a personal assistant that could help you conquer your to-do list, manage your goals, and keep you motivated? Meet Trakiz – the AI-powered productivity wizard that’s here to make your life easier, funnier, and more organized!
+                  Ever wished you had a personal assistant that could help you conquer your to-do list, manage your goals, and keep you motivated? Meet Trakiz - the AI-powered productivity wizard that’s here to make your life easier, funnier, and more organized!
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
