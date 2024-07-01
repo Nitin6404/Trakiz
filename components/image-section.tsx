@@ -59,7 +59,7 @@ export function ImageSection() {
                 Progress Tracking
               </CardTitle>
               <CardContent className="text-center text-lg text-gray-600">
-                Track your progress with engaging charts and graphs. See how far you've come.
+                Track your progress with engaging charts and graphs. See how far you&apos;ve come.
               </CardContent>
             </div>
           </Card>

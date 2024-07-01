@@ -75,7 +75,7 @@ export function Main() {
         </div>
       </header>
       <main className="flex flex-col items-center text-center space-y-2 p-8 mt-36">
-        <h1 className="text-5xl font-montserrat"><i className="text-gray-500">We're</i><i> launching </i> <i className="text-gray-500"> in</i></h1>
+        <h1 className="text-5xl font-montserrat"><i className="text-gray-500">We&apos;re</i><i> launching </i> <i className="text-gray-500"> in</i></h1>
         <div className="text-6xl">
           <CountdownTimer targetDate={targetDate} />
         </div>
@@ -125,7 +125,7 @@ export function Main() {
                   How Trakiz uses AI ?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Trakiz isn't just any old productivity tool; it's powered by some seriously smart AI. Imagine having a super-intelligent friend who knows your goals, understands your schedule, and can break down even the most daunting tasks into bite-sized pieces. That's Trakiz!
+                  Trakiz isn&apos;t just any old productivity tool; it&apos;s powered by some seriously smart AI. Imagine having a super-intelligent friend who knows your goals, understands your schedule, and can break down even the most daunting tasks into bite-sized pieces. That&apos;s Trakiz!
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
@@ -133,7 +133,7 @@ export function Main() {
                   Is my data secure with Trakiz?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Absolutely! Your data is safer with us than a squirrel's stash of acorns. We use top-notch encryption and security protocols to make sure your information is protected. So, relax and let Trakiz handle your tasks while you focus on more important things.
+                  Absolutely! Your data is safer with us than a squirrel&apos;s stash of acorns. We use top-notch encryption and security protocols to make sure your information is protected. So, relax and let Trakiz handle your tasks while you focus on more important things.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">

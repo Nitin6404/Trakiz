@@ -1,13 +1,13 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { TimerContainer } from '@/components/countdown-trakiz';
 
 interface CountdownTimerProps {
   targetDate: Date;
 }
 
-const CountdownTimer: React.FC<CountdownTimerProps> = ({targetDate} ) => {
-  const calculateTimeLeft = () => {
+const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
+  const calculateTimeLeft = useCallback(() => {
     const difference = +new Date(targetDate) - +new Date();
     let timeLeft = {
       days: 0,
@@ -26,22 +26,22 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({targetDate} ) => {
     }
 
     return timeLeft;
-  };
+  }, [targetDate]);
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-  const [intervalId, setIntervalId] = useState(null);
+  const [intervalId, setIntervalId] = useState<number | null>(null);
 
   useEffect(() => {
     if (!intervalId) {
       const id = setInterval(() => {
         setTimeLeft(calculateTimeLeft());
       }, 1000);
-      // @ts-ignore
       setIntervalId(id);
     }
-    // @ts-ignore
-    return () => clearInterval(intervalId);
-  }, [intervalId]);
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [intervalId, calculateTimeLeft]);
 
   return (
     <div className="countdown-timer">
