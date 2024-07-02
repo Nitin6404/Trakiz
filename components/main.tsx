@@ -11,8 +11,8 @@ import { addEmail } from "@/lib/supabase";
 import { LoaderCircle } from "lucide-react";
 
 export function Main() {
-  const targetDate: Date = new Date();
-  targetDate.setDate(targetDate.getDate() + 2); // Set target date to 2 days from now
+  const targetDate: Date = new Date('2024, 07, 05, 00, 00, 00');
+  targetDate.setDate(targetDate.getDate()); // Set target date to 2 days from now
 
   const [submissionFail, setSubmissionFail] = useState(false);
 
@@ -63,9 +63,6 @@ export function Main() {
           </div>
         </Link>
         <div className="md:flex space-x-4">
-          <Button variant="outline" className="hidden bg-orange-500 font-montserrat text-white md:block">
-            Get Early Access
-          </Button>
           <Link href="https://www.linkedin.com/in/shibtain/">
             <Button variant="outline" className="bg-orange-500 font-montserrat text-white">
               Get In Touch
