@@ -24,13 +24,13 @@ export function Main() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
       const { data, error } = await addEmail(email);
       if (error) {
         if (error.message.includes('duplicate key value violates unique constraint "earlyaccessusers_email_key"')) {
           setSubmissionFail(true);
-          setMessage('Email already exists');
+          setMessage('You have already submitted your email!');
         } else {
           throw new Error(error.message);
         }
@@ -62,7 +62,7 @@ export function Main() {
             <span className="text-2xl font-bold ml-1">Trakiz</span>
           </div>
         </Link>
-        <div className="space-x-4">
+        <div className="md:flex space-x-4">
           <Button variant="outline" className="hidden bg-orange-500 font-montserrat text-white md:block">
             Get Early Access
           </Button>
@@ -89,8 +89,8 @@ export function Main() {
           Welcome to Trakiz!
         </p>
       </main>
-      <div className="flex flex-col justify-center items-center space-x-4 mt-12">
-        <form onSubmit={handleSubmit} className="flex space-x-4">
+      <div className="flex flex-col justify-center items-center md:space-x-4 mt-12">
+        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row md:space-x-4">
           <Input
             type="email"
             placeholder="Enter your email"
@@ -99,14 +99,21 @@ export function Main() {
             required
             className="w-64 text-black bg-white font-montserrat"
           />
-          <Button type="submit" variant="outline" className="bg-orange-500 font-montserrat text-white" disabled={loading}>
-            {loading ? <LoaderCircle className="w-6 h-6 animate-spin" /> : 'Get Early Access'}
-          </Button>
+          <div className="w-64 mt-4 md:m-0 md:w-[140px] flex justify-center">
+            <Button
+              type="submit"
+              variant="outline"
+              className="w-[140px] h-[40px] bg-orange-500 font-montserrat text-white m-0 p-0"
+              disabled={loading}
+            >
+              {loading ? <LoaderCircle className="w-6 h-6 animate-spin" /> : 'Get Early Access'}
+            </Button>
+          </div>
         </form>
         <span className="mt-4">
-          {submissionFail ? 
+          {submissionFail ?
             <p className="text-sm font-montserrat text-red-500">{message}</p>
-          : <p className="text-sm font-montserrat text-green-500">{message}</p>}
+            : <p className="text-sm font-montserrat text-green-500">{message}</p>}
         </span>
       </div>
       <div>
@@ -115,9 +122,9 @@ export function Main() {
       <main className="flex flex-col justify-center items-center text-center space-y-2 p-8 mt-36">
         <div className="w-full max-w-3xl">
           <div className="space-y-2 mt-4">
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion type="single" collapsible className="w-full text-start">
               <AccordionItem value="item-1">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-start">
                   What is Trakiz ?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -125,7 +132,7 @@ export function Main() {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-start">
                   How Trakiz uses AI ?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -133,7 +140,7 @@ export function Main() {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-start">
                   Is my data secure with Trakiz?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -141,7 +148,7 @@ export function Main() {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-start">
                   Can Trakiz help me break down my goals?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -149,7 +156,7 @@ export function Main() {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-5">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-start">
                   Is Trakiz available on both desktop and mobile devices?
                 </AccordionTrigger>
                 <AccordionContent>
