@@ -11,7 +11,7 @@ import { addEmail } from "@/lib/supabase";
 import { LoaderCircle } from "lucide-react";
 
 export function Main() {
-  const targetDate: Date = new Date('2024, 07, 05, 00, 00, 00');
+  const targetDate: Date = new Date('2024, 07, 05');
   targetDate.setDate(targetDate.getDate()); // Set target date to 2 days from now
 
   const [submissionFail, setSubmissionFail] = useState(false);
