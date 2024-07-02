@@ -50,20 +50,20 @@ export function Main() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <header className="flex justify-around items-center p-4">
-        <Link href="https://x.com/Nitinnennn">
+      <header className="flex justify-between md:justify-around items-center p-4">
+        <Link className="hidden md:block" href="https://x.com/Nitinnennn">
           <Button variant="outline" className="font-montserrat bg-orange-500 text-white">
             Follow on X
           </Button>
         </Link>
         <Link href="/">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center ">
             <TrakizIcon />
             <span className="text-2xl font-bold ml-1">Trakiz</span>
           </div>
         </Link>
         <div className="space-x-4">
-          <Button variant="outline" className="bg-orange-500 font-montserrat text-white">
+          <Button variant="outline" className="hidden bg-orange-500 font-montserrat text-white md:block">
             Get Early Access
           </Button>
           <Link href="https://www.linkedin.com/in/shibtain/">
@@ -71,11 +71,15 @@ export function Main() {
               Get In Touch
             </Button>
           </Link>
-
         </div>
       </header>
       <main className="flex flex-col items-center text-center space-y-2 p-8 mt-36">
-        <h1 className="text-5xl font-montserrat"><i className="text-gray-500">We&apos;re</i><i> launching </i> <i className="text-gray-500"> in</i></h1>
+        <h1 className="text-5xl font-montserrat">
+          <i className="text-gray-500">We&apos;re</i>
+          <br className="block md:hidden" />
+          <i> launching </i>
+          <i className="text-gray-500"> in</i>
+        </h1>
         <div className="text-6xl">
           <CountdownTimer targetDate={targetDate} />
         </div>

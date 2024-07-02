@@ -72,13 +72,13 @@ export const TimerContainer = ({days, hours, minutes ,seconds }: timeProps) => {
    }
   
     return (
-       <div className="font-inter grid grid-cols-2 gap-4 py-6 px-10 md:flex md:items-center md:justify-between rounded-xl md:px-6 md:py-1 ">
+       <div className="font-inter flex py-4 md:gap-6 justify-between items-center md:items-center md:justify-between rounded-xl md:px-6 md:py-1 ">
             <NumberBox num={days } flip={daysFlip} />
-            <span className=" hidden text-5xl md:inline-block md:text-7xl font-light font-inter text-gray-50 ">:</span>
+            <span className="text-5xl md:inline-block md:text-7xl font-light font-inter text-gray-50 ">:</span>
             <NumberBox num={hours } flip={hoursFlip} />
-            <span className="hidden text-5xl md:inline-block md:text-7xl font-light font-inter text-gray-50 ">:</span>
+            <span className=" text-5xl md:inline-block md:text-7xl font-light font-inter text-gray-50 ">:</span>
             <NumberBox num={minutes} flip={minutesFlip}/>
-            <span className="hidden text-5xl md:inline-block md:text-7xl font-light font-inter text-gray-50 ">:</span>
+            <span className=" text-5xl md:inline-block md:text-7xl font-light font-inter text-gray-50 ">:</span>
             <NumberBox num={seconds } flip={secondsFlip} />
         </div>
     )

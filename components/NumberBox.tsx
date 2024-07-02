@@ -13,8 +13,6 @@ export const NumberBox = ({ num, flip }: numProp) => {
                 <div className="text-5xl absolute z-10 font-light font-redhat md:text-7xl">
                    {num}
                 </div>
-                <div className=" rounded-b-lg rounded-t-lg w-full h-full"></div>
-                <div className={`absolute  w-full h-1/2 to  p-0  rounded-t-lg z-5 ${flip ? 'animate-flip' : 'bg-transparent'}`}></div>
             </div>
         </div>
     )
