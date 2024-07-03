@@ -1,10 +1,8 @@
-"use client";
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, memo } from 'react';
 import { TimerContainer } from '@/components/countdown-trakiz';
 
 const CountdownTimer = () => {
-  const targetDate: Date = new Date('2024, 07, 06');
-  targetDate.setDate(targetDate.getDate()); // Set target date to 2 days from now
+  const targetDate: Date = new Date('2024-07-06');
 
   const calculateTimeLeft = useCallback(() => {
     const difference = +new Date(targetDate) - +new Date();
@@ -28,19 +26,14 @@ const CountdownTimer = () => {
   }, [targetDate]);
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!intervalId) {
-      const id = setInterval(() => {
-        setTimeLeft(calculateTimeLeft());
-      }, 1000);
-      setIntervalId(id);
-    }
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [intervalId, calculateTimeLeft]);
+    const intervalId = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [calculateTimeLeft]);
 
   return (
     <div className="countdown-timer">
@@ -54,4 +47,4 @@ const CountdownTimer = () => {
   );
 };
 
-export default CountdownTimer;
+export default memo(CountdownTimer);
