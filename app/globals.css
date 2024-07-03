@@ -46,3 +46,12 @@
     @apply font-heading;
   }
 }
+
+.hide-scrollbar {
+  @apply overflow-y-scroll;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
