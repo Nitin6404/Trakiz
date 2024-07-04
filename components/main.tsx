@@ -90,7 +90,7 @@ export function Main() {
         <div className="text-6xl">
           <CountdownTimer />
         </div>
-        <p>
+        <p className="font-poppins">
           Stay focused with AI, chat about your to-dos, and achieve your goals
           with ease.
           <br />
@@ -108,7 +108,7 @@ export function Main() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-64 text-black bg-white font-montserrat"
+            className="w-64 text-white text-[0.9rem] bg-black font-poppins placeholder:text-white"
           />
           <div className="w-64 mt-4 md:m-0 md:w-[140px] flex justify-center">
             <Button
@@ -143,7 +143,7 @@ export function Main() {
                 <AccordionTrigger className="text-start">
                   What is Trakiz ?
                 </AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className="font-poppins">
                   Ever wished you had a personal assistant that could help you
                   conquer your to-do list, manage your goals, and keep you
                   motivated? Meet Trakiz - the AI-powered productivity wizard
@@ -155,7 +155,7 @@ export function Main() {
                 <AccordionTrigger className="text-start">
                   How Trakiz uses AI ?
                 </AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className="font-poppins">
                   Trakiz isn&apos;t just any old productivity tool; it&apos;s
                   powered by some seriously smart AI. Imagine having a
                   super-intelligent friend who knows your goals, understands
@@ -167,7 +167,7 @@ export function Main() {
                 <AccordionTrigger className="text-start">
                   Is my data secure with Trakiz?
                 </AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className="font-poppins">
                   Absolutely! Your data is safer with us than a squirrel&apos;s
                   stash of acorns. We use top-notch encryption and security
                   protocols to make sure your information is protected. So,
@@ -179,7 +179,7 @@ export function Main() {
                 <AccordionTrigger className="text-start">
                   Can Trakiz help me break down my goals?
                 </AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className="font-poppins">
                   You betcha! Trakiz is like a goal-whisperer. Whether you want
                   to learn a new skill, get fit, or finally finish that novel,
                   Trakiz will break down your goals into manageable tasks and
@@ -191,7 +191,7 @@ export function Main() {
                 <AccordionTrigger className="text-start">
                   Is Trakiz available on both desktop and mobile devices?
                 </AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className="font-poppins">
                   Indeed it is! Whether you’re a desktop devotee or a mobile
                   maven, Trakiz is there for you. Use it on your morning
                   commute, during your lunch break, or when you’re pretending to

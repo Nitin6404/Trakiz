@@ -20,40 +20,40 @@ export function ImageSection() {
       </div>
       <div className="grid grid-cols-1 gap-8 md:gap-12 lg:gap-16 md:grid-cols-2 lg:grid-cols-3 mt-16">
   <div className="flex justify-center items-center">
-    <Card className="flex flex-col justify-center items-center rounded-lg shadow-lg w-full max-w-sm h-[350px] bg-white text-black">
+    <Card className="flex flex-col justify-center items-center rounded-lg shadow-lg w-full max-w-sm h-[325px] bg-white text-black">
       <CardHeader>
         <ListTodoIcon className="w-12 h-12 text-[#ff8c00]" />
       </CardHeader>
       <CardTitle className="text-xl font-semibold text-center">
         Chat with Your To-Do List
       </CardTitle>
-      <CardContent className="text-center text-lg text-gray-600">
+      <CardContent className="text-center text-lg text-gray-600 font-poppins">
         Say goodbye to boring lists! Chat with your tasks, get suggestions, & turn your to-do list into a productivity partner.
       </CardContent>
     </Card>
   </div>
   <div className="flex justify-center items-center">
-    <Card className="flex flex-col justify-center items-center rounded-lg shadow-lg w-full max-w-sm h-[350px] bg-white text-black">
+    <Card className="flex flex-col justify-center items-center rounded-lg shadow-lg w-full max-w-sm h-[325px] bg-white text-black">
       <CardHeader>
         <TimerIcon className="w-12 h-12 text-[#ff8c00]" />
       </CardHeader>
       <CardTitle className="text-xl font-semibold text-center">
         Focused Timer Sessions
       </CardTitle>
-      <CardContent className="text-center text-lg text-gray-600">
+      <CardContent className="text-center text-lg text-gray-600 font-poppins">
         Trakiz helps you stay on track with focused timer sessions, boosting your productivity with short, effective sprints.
       </CardContent>
     </Card>
   </div>
   <div className="flex justify-center items-center">
-    <Card className="flex flex-col justify-center items-center rounded-lg shadow-lg w-full max-w-sm h-[350px] bg-white text-black">
+    <Card className="flex flex-col justify-center items-center rounded-lg shadow-lg w-full max-w-sm h-[325px] bg-white text-black">
       <CardHeader>
         <WaypointsIcon className="w-12 h-12 text-[#ff8c00]" />
       </CardHeader>
       <CardTitle className="text-xl font-semibold text-center">
         Progress Tracking
       </CardTitle>
-      <CardContent className="text-center text-lg text-gray-600">
+      <CardContent className="text-center text-lg text-gray-600 font-poppins">
         Track your progress with engaging charts and graphs. See how far you&apos;ve come.
       </CardContent>
     </Card>
