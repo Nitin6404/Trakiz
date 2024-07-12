@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="w-screen">
-      <LandingPage />
+      <Main />
     </div>
   );
 }
