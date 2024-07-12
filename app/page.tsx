@@ -1,4 +1,4 @@
-import { LandingPage } from "@/components/component/landing-page";
+import { Main } from "@/components/component/main";
 import { Metadata } from "next";
 
 
