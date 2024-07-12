@@ -1,11 +1,12 @@
 import { fontFamily } from "tailwindcss/defaultTheme";
-
 /** @type {import('tailwindcss').Config} */
 const config=  {
   content: [
     "./components/**/*.{js,ts,jsx,tsx}",
     "./app/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/keep-react/**/*.{js,jsx,ts,tsx}",
   ],
+  presets: [require("keep-react/preset")],
   theme: {
     extend: {
       fontFamily: {

@@ -1,11 +1,10 @@
-"use client";
+"use client"
+import SideBar from "@/components/component/SideBar"
 
-const DashBoard = () => {
+export default function Page() {
   return (
     <div className="w-full h-full ">
-        
+      <SideBar />
     </div>
   )
-}
-
-export default DashBoard
+} 
