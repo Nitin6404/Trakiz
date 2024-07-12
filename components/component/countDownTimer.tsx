@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect, memo } from 'react';
 import { TimerContainer } from '@/components/component/countdown-trakiz';
 
 const CountdownTimer = () => {
-  const targetDate: Date = new Date('2024-07-07');
+  const targetDate: Date = new Date('2024-07-15');
 
   const calculateTimeLeft = useCallback(() => {
     const difference = +new Date(targetDate) - +new Date();
