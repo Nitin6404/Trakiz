@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect, memo } from 'react';
-import { TimerContainer } from '@/components/countdown-trakiz';
+import { TimerContainer } from '@/components/component/countdown-trakiz';
 
 const CountdownTimer = () => {
   const targetDate: Date = new Date('2024-07-07');

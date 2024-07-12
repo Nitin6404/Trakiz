@@ -40,6 +40,8 @@
 
   body {
     @apply bg-background text-foreground font-body;
+    width: 100vw;
+    height: 100vh;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -54,4 +56,18 @@
 .hide-scrollbar::-webkit-scrollbar {
   width: 0;
   height: 0;
+}
+
+*{
+  -ms-overflow-style: none;
+}
+
+/* display none for scroll bar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
 }

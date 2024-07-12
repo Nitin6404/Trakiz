@@ -1,5 +1,6 @@
-import { Main } from "@/components/main";
+import { LandingPage } from "@/components/component/landing-page";
 import { Metadata } from "next";
+
 
 export const metadata: Metadata = {
   title: 'Trakiz',
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
-    <Main />
-    </>
+    <div className="w-screen">
+      <LandingPage />
+    </div>
   );
 }

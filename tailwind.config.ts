@@ -13,7 +13,9 @@ const config=  {
         body: ['var(--font-body)', ...fontFamily.sans],
         montserrat: ['Montserrat', ...fontFamily.sans],
         inter: ['Inter', ...fontFamily.sans],
-        poppins: ['Poppins', ...fontFamily.sans]
+        poppins: ['Poppins', ...fontFamily.sans],
+        roboto: ['Roboto', ...fontFamily.sans],
+        manrope: ['Manrope', ...fontFamily.sans],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -77,7 +79,10 @@ const config=  {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require('tailwind-scrollbar'),
+  ],
 };
 
 export default config;  
