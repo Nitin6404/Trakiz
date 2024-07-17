@@ -28,12 +28,6 @@ import {
   CardDescription
 } from "@/components/ui/card"
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
@@ -46,8 +40,29 @@ import TrakizAiIcon from "@/components/ui/trakiz-ai-icon"
 import Chat from "@/components/component/Chat"
 import { KanbanTodoBoard } from "@/components/component/KanbanTodoBoard"
 import { Dialog, DialogClose, DialogContent, DialogTrigger, DialogOverlay, DialogPortal, DialogDescription, DialogTitle } from '../ui/dialog';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+} from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/hooks'
+import React from 'react';
 
 const SideBar = () => {
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = React.useRef()
+
+  const handleChatRightSideBar = () => {
+    return (
+      <Chat />
+    )
+  }
+
   return (
     <ResizablePanelGroup
       direction="horizontal"
@@ -200,52 +215,33 @@ const SideBar = () => {
               <p className='text-xl leading-5 font-bold text-[#BDC1CA]'>You have 9 tasks to complete</p>
             </div>
             <div className='flex pr-16 space-x-5'>
-              {/* <Drawer direction='right'>
-                <DrawerTrigger>
-                  <TrakizAiIcon width={27} height={27} />
-                </DrawerTrigger>
-                <DialogPortal>
-                  <DrawerContent className="fixed right-0 top-0 h-full w-1/5 bg-gray-900 shadow-lg">
-                    <div className="flex justify-between items-center px-4 py-2 border-b border-gray-700">
-                      <span className="text-white">AI Chat</span>
-                      <DrawerClose>
-                        <X className="text-white cursor-pointer" />
-                      </DrawerClose>
-                    </div>
+              <Button ref={btnRef}  onClick={onOpen}>
+                <TrakizAiIcon width={27} height={27} />
+              </Button>
+              <Drawer
+                isOpen={isOpen}
+                placement='right'
+                onClose={onClose}
+                finalFocusRef={btnRef}
+              >
+                <DrawerOverlay />
+                <DrawerContent>
+                  <div className='h-full flex justify-center items-center'>
+                    <DrawerCloseButton width={30} height={30} borderRadius={20} backgroundColor='black' />
+                  </div>
+                  <DrawerBody display='flex' position='absolute' right={0} height='100%' width={350} className='p-0'>
                     <Chat />
-                  </DrawerContent>
-                </DialogPortal>
-              </Drawer> */}
-              <Dialog>
-                <DialogTrigger asChild>
-                  <button className="text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
-                    <TrakizAiIcon width={27} height={27} />
-                  </button>
-                </DialogTrigger>
-                <DialogPortal>
-                  <DialogOverlay className="bg-blackA6 fixed inset-0" />
-                  <DialogContent className="fixed top-0 right-0 h-full w-[20%] bg-white shadow-lg focus:outline-none overflow-y-auto">
-                    <Chat />
-                    <DialogClose asChild>
-                      <button
-                        className="text-violet11 hover:bg-violet4 focus:shadow-violet7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
-                        aria-label="Close"
-                      >
-                        <CrossIcon />
-                      </button>
-                    </DialogClose>
-                  </DialogContent>
-                </DialogPortal>
-              </Dialog>
-
-            <AlarmClockCheck />
+                  </DrawerBody>
+                </DrawerContent>
+              </Drawer>
+              <AlarmClockCheck />
+            </div>
+          </div>
+          <div className='mt-4'>
+            <KanbanTodoBoard />
           </div>
         </div>
-        <div className='mt-4'>
-          <KanbanTodoBoard />
-        </div>
-      </div>
-    </ResizablePanel>
+      </ResizablePanel>
     </ResizablePanelGroup >
   )
 }

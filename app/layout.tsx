@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/component/theme-provider";
+import { Providers } from '@/app/providers'
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
@@ -31,9 +32,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+            {children}
         </ThemeProvider>
-      </body>
+      </body>/
     </html>
   );
 }
