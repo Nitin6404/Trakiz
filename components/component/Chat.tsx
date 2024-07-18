@@ -6,24 +6,17 @@ import { Loader2, ChevronLeft, ChevronRight, EllipsisVertical } from 'lucide-rea
 import ReactMarkdown from 'react-markdown';
 import ChatAvatar from '@/components/component/Avatar';
 import { Button } from '@/components/ui/button';
-import { CoreAssistantMessage, CoreSystemMessage, CoreToolMessage, CoreUserMessage } from 'ai';
-
-type CoreMessage = CoreToolMessage | CoreUserMessage | CoreAssistantMessage | CoreSystemMessage;
 
 export default function Chat() {
-  const [messages, setMessages] = useState<CoreMessage[]>([
+  const [messages, setMessages] = useState([
     {
       role: 'assistant',
       content: 'Hello! How can I help you today?',
-    } as CoreAssistantMessage // Type assertion
+    } 
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null); // Added state for error handling
-
-  function isCoreMessageRole(role: any): role is CoreMessage['role'] {
-    return ['tool', 'user', 'assistant', 'system'].includes(role);
-  }
 
   return (
     <div className="flex flex-col h-full w-full bg-[#141718] overflow-hidden">
@@ -48,40 +41,36 @@ export default function Chat() {
           onSubmit={async (e) => {
             e.preventDefault();
 
-            const role: CoreUserMessage['role'] = 'user'; // Type-safe assignment
+            const role = 'user'; // Type-safe assignment
             const content = input; // Assuming 'input' is your message content
 
-            if (isCoreMessageRole(role)) {
-              const newMessage: CoreMessage = { role, content }; // Safely typed
-              const newMessages: CoreMessage[] = [...messages, newMessage];
-              setMessages(newMessages);
+            const newMessage = { role, content }; // Safely typed
+            const newMessages = [...messages, newMessage];
+            setMessages(newMessages);
 
-              setInput('');
-              setLoading(true);
+            setInput('');
+            setLoading(true);
 
-              try {
-                const result = await continueConversation(newMessages);
-                setLoading(false);
+            try {
+              // @ts-ignore
+              const result = await continueConversation({ messages: newMessages });
+              setLoading(false);
 
-                let fullMessage = '';
-                for await (const content of readStreamableValue(result.message)) {
-                  const words = content ? content.split(' ') : [];
-                  for (const word of words) {
-                    await new Promise((resolve) => setTimeout(resolve, 50));
-                    fullMessage += word + ' ';
-                    setMessages([
-                      ...newMessages,
-                      { role: 'assistant', content: fullMessage } as CoreAssistantMessage,
-                    ]);
-                  }
+              let fullMessage = '';
+              for await (const content of readStreamableValue(result.message)) {
+                const words = content ? content.split(' ') : [];
+                for (const word of words) {
+                  await new Promise((resolve) => setTimeout(resolve, 50));
+                  fullMessage += word + ' ';
+                  setMessages([
+                    ...newMessages,
+                    { role: 'assistant', content: fullMessage },
+                  ]);
                 }
-              } catch (err: any) {
-                setLoading(false);
-                setError(err.message || 'An error occurred'); // Properly set error message
               }
-            } else {
-              console.error('Invalid role:', role);
-              // Handle the error case where role is not a valid CoreMessage role
+            } catch (err: any) {
+              setLoading(false);
+              setError(err.message || 'An error occurred'); // Properly set error message
             }
           }}
           className="w-full flex justify-between"
