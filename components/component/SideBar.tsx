@@ -51,11 +51,14 @@ import {
 } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/hooks'
 import React from 'react';
+import { FocusableElement } from '@chakra-ui/utils';
+import { useRef } from 'react';
 
 const SideBar = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
+  // Assuming Button is a focusable element, explicitly type btnRef to match or use a more specific type if available
+  const btnRef = useRef<HTMLButtonElement | null>(null);
 
   const handleChatRightSideBar = () => {
     return (
