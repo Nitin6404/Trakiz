@@ -29,7 +29,7 @@ export default function Chat() {
     temperature: 1,
     topP: 0.95,
     topK: 64,
-    maxOutputTokens: 400,
+    maxOutputTokens: 2000,
     responseMimeType: "text/plain",
   };
 
@@ -61,6 +61,7 @@ export default function Chat() {
         Respond in a clear, simple, and organized manner. If the user asks something unrelated to their tasks, politely decline the request. 
         At the start of each chat session, greet the user with a reference to their past tasks or to-dos. 
         Additionally, engage in a conversation with the user about their goals or tasks using their to-do lists. 
+        Use proper formatting and spacing between paragraphs to make the text more readable and scanneable.
         If you need additional information or clarification, feel free to ask the user questions.
         Task from user: ${input}
       `);
@@ -90,33 +91,34 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col h-full w-full bg-[#141718] overflow-hidden">
-      <div className="flex justify-between items-center px-4 py-2 bg-[#1e2122]">
-        <ChevronLeft className="w-6 h-6 cursor-pointer text-white" />
-        <EllipsisVertical className="w-6 h-6 cursor-pointer text-white" />
+      <div className="flex justify-between items-center mt-8 mx-9">
+        <div className='h-8 w-8 flex justify-center items-center rounded-lg shadow-lg bg-[#232627]'>
+        <ChevronLeft height={15} width={15} className="cursor-pointer text-white" />
+        </div>
       </div>
-      <div className="flex text-sm md:text-base flex-col pt-10 pb-16 w-full flex-grow flex-1 rounded-3xl shadow-md overflow-y-auto">
+      <div className="flex text-sm md:text-base flex-col pt-5 w-full flex-grow flex-1 overflow-y-auto">
         {history.map((item, index) => (
           <div
             key={index}
-            className={`chat ${item.role === "model" ? "chat-start" : "chat-end"
+            className={`chat ${item.role === "model" ? "chat-start bg-[#232627]" : "chat-end"
               }`}
           >
-            <div className="flex chat-image avatar space-x-5 p-1">
-              <div className="w-6 md:w-10 rounded-full">
+            <div className={`flex ${item.role === "model" ? "flex-col" : "items-center py-3 space-x-2"} chat-image avatar p-1`}>
+              <div className={`rounded-full ${item.role === "model" ? "pt-3" : "flex justify-center items-center"} ml-5`}>
                 <ChatAvatar isUser={item.role === "model" ? false : true} />
               </div>
               <div
-                className={`chat-bubble font-medium ${item.role === "model" ? "chat-bubble-primary" : ""
+                className={`flex justify-start items-center font-medium font-manrope text-sm ${item.role === "model" ? "chat-bubble-primary pb-3 ml-5 text-[#A0A0A5]" : ""
                   }`}
               >
-                <Markdown className='p-2'>{item.parts}</Markdown>
+                <Markdown className={`${item.role === "model" ? "mx-2 pt-2" : ""}`}>{item.parts}</Markdown>
               </div>
             </div>
           </div>
         ))}
         <div ref={messagesEndRef} />
       </div>
-      <div className="flex justify-center w-full p-4 bg-[#1e2122]">
+      <div className="flex justify-center w-full p-4 space-x-4">
         <textarea
           value={input}
           required
@@ -124,19 +126,16 @@ export default function Chat() {
           onKeyDown={handleKeyDown}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Start Chatting..."
-          className="textarea backdrop-blur textarea-primary w-full mx-auto bg-opacity-60 font-medium shadow rounded-3xl"
+          className="textarea w-[90%] bg-[#232627] font-normal text-base rounded-md py-2.5 px-3.5"
         />
-        <div className="flex items-center justify-center w-12">
+        <div className="flex items-center justify-center">
           <Button
-            className={`btn rounded-3xl shadow-md ${loading
-              ? "btn-accent cursor-wait pointer-events-none"
-              : "btn-primary"
-              }`}
+            className="bg-[#232627] h-11 w-11 p-2 rounded-md"
             title="send"
             onClick={chatting}
           >
             {loading ? (
-              <Loader2 className="h-6 w-6 text-white" />
+              <Loader2 className="h-6 w-6 text-white animate-spin" />
             ) : (
               <ChevronRight className="h-6 w-6 text-white" />
             )}

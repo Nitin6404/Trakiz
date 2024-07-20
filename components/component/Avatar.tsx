@@ -10,8 +10,8 @@ export default function ChatAvatar({isUser}: {isUser: boolean}) {
 
 function UserAvatar(){
     return(
-        <Avatar className="w-10 h-10">
-            <AvatarImage src="https://avatars.githubusercontent.com/u/104624489?v=4" alt="User" />
+        <Avatar >
+            <AvatarImage className='h-[33px] w-[32px] rounded-full' src="https://avatars.githubusercontent.com/u/104624489?v=4" alt="User" />
             <AvatarFallback>User</AvatarFallback>
         </Avatar>
     )
@@ -19,8 +19,8 @@ function UserAvatar(){
 
 function AssistantAvatar(){
     return(
-        <Avatar className="w-10 h-10">
-            <AvatarImage src="/logooftrakiz.png" alt="Assistant" />
+        <Avatar >
+            <AvatarImage height={36} width={37} src="/logooftrakiz.png" alt="Assistant" />
             <AvatarFallback>Assistant</AvatarFallback>
         </Avatar>
     )
