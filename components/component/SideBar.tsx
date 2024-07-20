@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from "next/image"
+import ReminderSlip from "@/components/component/ReminderSlip";
 import {
   X,
   BellIcon,
@@ -195,6 +196,7 @@ const SideBar = () => {
       </ResizablePanel>
       <Separator orientation="vertical" />
       <ResizablePanel defaultSize={84}>
+      <ReminderSlip />
         <div className="flex flex-col h-full p-4 font-poppins">
           <header className='flex justify-end'>
             <div className='flex justify-center items-center space-x-5'>
