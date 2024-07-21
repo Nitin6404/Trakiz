@@ -6,7 +6,7 @@ import Image from 'next/image';
 import ChatAvatar from '@/components/component/Avatar';
 import { Button } from '@/components/ui/button';
 
-export default function Chat() {
+export default function Chat({ onClose }: { onClose: () => void }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hello! How can I help you today?' }
@@ -93,7 +93,7 @@ export default function Chat() {
     <div className="flex flex-col h-full w-full bg-[#141718] overflow-hidden">
       <div className="flex justify-between items-center mt-8 mx-9">
         <div className='h-8 w-8 flex justify-center items-center rounded-lg shadow-lg bg-[#232627]'>
-        <ChevronLeft height={15} width={15} className="cursor-pointer text-white" />
+        <ChevronLeft onClick={onClose} height={15} width={15} className="cursor-pointer text-white" />
         </div>
       </div>
       <div className="flex text-sm md:text-base flex-col pt-5 w-full flex-grow flex-1 overflow-y-auto">

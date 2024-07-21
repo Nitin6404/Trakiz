@@ -40,7 +40,6 @@ import {
 import TrakizAiIcon from "@/components/ui/trakiz-ai-icon"
 import Chat from "@/components/component/Chat"
 import { KanbanTodoBoard } from "@/components/component/KanbanTodoBoard"
-import { Dialog, DialogClose, DialogContent, DialogTrigger, DialogOverlay, DialogPortal, DialogDescription, DialogTitle } from '../ui/dialog';
 import {
   Drawer,
   DrawerBody,
@@ -80,7 +79,6 @@ const SideBar = () => {
               <span className="font-semibold font-roboto text-sm">Trakiz</span>
             </div>
             <div className="flex justify-center items-center space-x-3">
-              <BellIcon width={16} height={16} />
               <AlignLeft width={16} height={16} />
             </div>
           </div>
@@ -196,21 +194,13 @@ const SideBar = () => {
       </ResizablePanel>
       <Separator orientation="vertical" />
       <ResizablePanel defaultSize={84}>
-      <ReminderSlip />
+        <ReminderSlip />
         <div className="flex flex-col h-full p-4 font-poppins">
           <header className='flex justify-end'>
-            <div className='flex justify-center items-center space-x-5'>
-              <div className='flex justify-center items-center'>
-                <BellIcon width={20} height={20} />
-              </div>
-              <div className='flex justify-center items-center'>
-                <CircleHelp width={20} height={20} />
-              </div>
-              <Avatar>
-                <AvatarImage width={30} height={30} className='rounded-full' src="https://avatars.githubusercontent.com/u/104624489?v=4" alt="@nitin6404" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
+            <Avatar>
+              <AvatarImage width={30} height={30} className='rounded-full' src="https://avatars.githubusercontent.com/u/104624489?v=4" alt="@nitin6404" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
           </header>
           <div className='mt-5 '>
             <p className='text-4xl leading-10 font-bold font-montserrat'>Welcome back, Nitin</p>
@@ -220,7 +210,7 @@ const SideBar = () => {
               <p className='text-xl leading-5 font-bold text-[#BDC1CA]'>You have 9 tasks to complete</p>
             </div>
             <div className='flex pr-16 space-x-5'>
-              <Button ref={btnRef}  onClick={onOpen}>
+              <Button className='bg-transparent' ref={btnRef} onClick={onOpen}>
                 <TrakizAiIcon width={27} height={27} />
               </Button>
               <Drawer
@@ -235,11 +225,13 @@ const SideBar = () => {
                     <DrawerCloseButton width={30} height={30} borderRadius={20} backgroundColor='black' />
                   </div>
                   <DrawerBody display='flex' position='absolute' right={0} height='100%' width={350} className='p-0'>
-                    <Chat />
+                    <Chat onClose={onClose} />
                   </DrawerBody>
                 </DrawerContent>
               </Drawer>
-              <AlarmClockCheck />
+              <div className='flex justify-center items-center'>
+                <AlarmClockCheck />
+              </div>
             </div>
           </div>
           <div className='mt-4'>
