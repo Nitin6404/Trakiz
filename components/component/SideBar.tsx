@@ -60,12 +60,6 @@ const SideBar = () => {
   // Assuming Button is a focusable element, explicitly type btnRef to match or use a more specific type if available
   const btnRef = useRef<HTMLButtonElement | null>(null);
 
-  const handleChatRightSideBar = () => {
-    return (
-      <Chat />
-    )
-  }
-
   return (
     <ResizablePanelGroup
       direction="horizontal"
