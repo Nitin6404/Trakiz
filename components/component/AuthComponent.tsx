@@ -43,14 +43,14 @@ export default function AuthComponent({signInComponent}: {signInComponent: boole
                             {signInComponent ?
                                 (
                                     <>
-                                        <label for="email" className="block text-base font-medium text-[#999999]">Email</label>
+                                        <label htmlFor="email" className="block text-base font-medium text-[#999999]">Email</label>
                                         <div className='mt-1 mb-1'>
                                             <div className="absolute flex items-end pt-2 pl-2 pointer-events-none">
                                                 <Mail className='w-[33.33px] h-[26.67px]' color="#e48700" />
                                             </div>
                                             <input type="email" id="email" className="block w-[429px] pl-12 pr-4 py-2 text-white bg-transparent placeholder:text-white border-b-2 border-[#e48700] font-manrope font-medium text-lg focus:outline-none focus:border-[#e48700]" placeholder="Enter your email address" />
                                         </div>
-                                        <label for="email" className="block text-base font-medium text-[#999999]">Password</label>
+                                        <label htmlFor="email" className="block text-base font-medium text-[#999999]">Password</label>
                                         <div className='mt-1'>
                                             <div className="absolute flex items-end pt-2 pl-2 pointer-events-none">
                                                 <Lock className='w-[33.33px] h-[26.67px]' color="#e48700" />
@@ -61,7 +61,7 @@ export default function AuthComponent({signInComponent}: {signInComponent: boole
                                 ) :
                                 (
                                     <>
-                                        <label for="email" className="block text-base font-medium text-[#999999]">Email</label>
+                                        <label htmlFor="email" className="block text-base font-medium text-[#999999]">Email</label>
                                         <div className='mt-1'>
                                             <div className="absolute flex items-end pt-2 pl-2 pointer-events-none">
                                                 <Mail className='w-[33.33px] h-[26.67px]' color="#e48700" />
@@ -131,6 +131,6 @@ function GoogleIcon() {
 
 function ThinksToDoImage() {
     return (
-        <Image src='/auth.png' width={539} height={539} alt='Auth Image' />
+        <Image src='/auth.png' width={400} height={400} alt='Auth Image' />
     )
 }
