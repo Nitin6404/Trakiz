@@ -51,10 +51,14 @@ import {
 } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/hooks'
 import React from 'react';
-import { FocusableElement } from '@chakra-ui/utils';
 import { useRef } from 'react';
+import { User } from '@supabase/supabase-js';
 
-const SideBar = () => {
+interface userDataProps{
+  userData: User | null;
+}
+
+const SideBar = ({userData}: userDataProps) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   // Assuming Button is a focusable element, explicitly type btnRef to match or use a more specific type if available
@@ -197,7 +201,7 @@ const SideBar = () => {
             </Avatar>
           </header>
           <div className='mt-5 '>
-            <p className='text-4xl leading-10 font-bold font-montserrat'>Welcome back, Nitin</p>
+            <p className='text-4xl leading-10 font-bold font-montserrat'>Welcome back, {userData.user.email}</p>
           </div>
           <div className='mt-4 w-full flex justify-between items-center'>
             <div>

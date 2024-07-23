@@ -1,4 +1,4 @@
-import { Main } from "@/components/component/main";
+import { LandingPage } from "@/components/component/landing-page";
 import { Metadata } from "next";
 
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="w-screen">
-      <Main />
+      <LandingPage />
     </div>
   );
 }

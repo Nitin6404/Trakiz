@@ -1,8 +1,9 @@
 import { Mail, Lock } from 'lucide-react'
 import { Button } from '../ui/button'
 import Image from 'next/image';
+import Link from 'next/link';
 
-export default function AuthComponent({signInComponent}: {signInComponent: boolean}) {
+export default function AuthComponent({ signInComponent }: { signInComponent: boolean }) {
     return (
         <div className="w-full h-full flex space-x-5 bg-[#111010]">
             <div>
@@ -21,9 +22,11 @@ export default function AuthComponent({signInComponent}: {signInComponent: boole
                                         If you didnt have an account
                                         <br />
                                         You can
-                                        <span className="text-[#e48700] font-semibold pl-2">
-                                            Register here!
-                                        </span>
+                                        <Link href="/signup">
+                                            <span className="text-[#e48700] font-semibold pl-2 hover:underline">
+                                                Register here!
+                                            </span>
+                                        </Link>
                                     </p>
                                 ) :
                                 (
@@ -38,7 +41,7 @@ export default function AuthComponent({signInComponent}: {signInComponent: boole
                                 )}
                         </div>
                     </div>
-                    <div>
+                    <form>
                         <div className="relative mt-16">
                             {signInComponent ?
                                 (
@@ -72,17 +75,21 @@ export default function AuthComponent({signInComponent}: {signInComponent: boole
                                 )
                             }
                         </div>
-                    </div>
-                    <div className={`${signInComponent ? "mt-5" : "mt-24"}`}>
-                        <Button className='w-[429px] transition hover:scale-90 ease-in-out rounded-full bg-[#e48700]'>Go ahead! - its free</Button>
-                        <p className='font-poppins font-semibold text-base text-[#b5b5b5] mt-9 text-center w-[429px]'>or continue with</p>
-                        <div className='flex justify-center space-x-5 w-[429px] mt-5'>
-                            <FaceeBookIcon />
-                            <AppleIcon />
-                            <GoogleIcon />
+                        <div className={`${signInComponent ? "mt-5" : "mt-24"}`}>
+                            <Button
+                                className='w-[429px] transition hover:scale-90 ease-in-out rounded-full bg-[#e48700]'>
+                                Go ahead! - its free
+                            </Button>
+                            <p className='font-poppins font-semibold text-base text-[#b5b5b5] mt-9 text-center w-[429px]'>or continue with</p>
+                            <div className='flex justify-center space-x-5 w-[429px] mt-5'>
+                                <FaceeBookIcon />
+                                <AppleIcon />
+                                <GoogleIcon />
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
+
             </div>
             <div className="flex justify-center items-center m-5 bg-[#B6700B] w-[600px] rounded-xl">
                 <ThinksToDoImage />
@@ -108,8 +115,8 @@ function FaceeBookIcon() {
             <path d="M27.4832 26.9339L28.2889 21.8146H23.2488V18.494C23.2488 17.0931 23.9515 15.7268 26.209 15.7268H28.5019V11.3685C28.5019 11.3685 26.4219 11.0226 24.4342 11.0226C20.2815 11.0226 17.5697 13.475 17.5697 17.9129V21.8146H12.9554V26.9339H17.5697V39.3101C18.4961 39.4519 19.4438 39.5245 20.4092 39.5245C21.3747 39.5245 22.3224 39.4519 23.2488 39.3101V26.9339H27.4832Z" fill="white" />
             <defs>
                 <linearGradient id="paint0_linear_1_39" x1="20.7287" y1="1.59109" x2="20.7287" y2="37.7586" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#18ACFE" />
-                    <stop offset="1" stop-color="#0163E0" />
+                    <stop stopColor="#18ACFE" />
+                    <stop offset="1" stopColor="#0163E0" />
                 </linearGradient>
             </defs>
         </svg>
