@@ -204,10 +204,10 @@ export function Main() {
       </main>
       <footer className="flex justify-between items-center p-4 border-t border-gray-700 mt-5">
         <div className="flex flex-row">
-        <p className="text-sm text-muted-foreground">
-          ©2024 The Trakiz Team
-        </p>
-        <HeartIcon className="pl-2 w-6 h-6 border-none" />
+          <p className="text-sm text-muted-foreground">
+            ©2024 The Trakiz Team
+          </p>
+          <HeartIcon className="pl-2 w-6 h-6 border-none" />
         </div>
         <div className="flex space-x-4">
           <Link href="https://x.com/Nitinnennn">
