@@ -15,7 +15,7 @@ import Link from "next/link";
 import { addEmail } from "@/lib/supabase";
 import { LoaderCircle } from "lucide-react";
 
-export function Main() {
+export function EarlyAccessPage() {
   const [submissionFail, setSubmissionFail] = useState(false);
 
   const [loading, setLoading] = useState(false);

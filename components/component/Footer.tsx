@@ -60,13 +60,13 @@ const Footer = () => {
           </div>
           <div className="flex flex-col mt-4 text-[#575757]">
             <div className="flex space-x-8">
-              <Link href="">
+              <Link href="https://www.x.com/nitinnennn">
                 <TwitterIcon />
               </Link>
-              <Link href="">
+              <Link href="https://www.linkedin.com/in/shibtain/">
                 <LinkedinIcon />
               </Link>
-              <Link href="">
+              <Link href="https://www.instagram.com/officialtrakiz">
                 <InstagramIcon />
               </Link>
             </div>

@@ -37,10 +37,12 @@ const Header = () => {
           <Link href="#" className="text-white">
             Log In
           </Link>
-          <div className="flex bg-[#FB9300] rounded">
-            <button className="text-white pl-4 py-2">
-              GET STARTED FOR FREE
-            </button>
+          <div className="flex bg-[#FB9300] rounded transform hover:scale-90 duration-300 ease-in-out">
+            <Link href="/signin">
+              <button className="text-white pl-4 py-2">
+                GET STARTED FOR FREE
+              </button>
+            </Link>
             <div className="px-2 py-2 flex justify-center items-center">
               <svg
                 width="15"

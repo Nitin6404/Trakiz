@@ -1,9 +1,9 @@
-import { Main } from "@/components/component/main";
+import { EarlyAccessPage } from "@/components/component/EarlyAccessPage";
 
 const page = () => {
   return (
     <>
-      <Main />
+      < EarlyAccessPage />
     </>
   );
 };
