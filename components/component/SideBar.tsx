@@ -22,6 +22,7 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Card,
   CardHeader,
@@ -33,6 +34,15 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
   Avatar,
   AvatarImage,
   AvatarFallback
@@ -43,8 +53,6 @@ import { KanbanTodoBoard } from "@/components/component/KanbanTodoBoard"
 import {
   Drawer,
   DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
@@ -71,9 +79,6 @@ const SideBar = () => {
               <TrakizIcon />
               <span className="font-semibold font-roboto text-sm">Trakiz</span>
             </div>
-            <div className="flex justify-center items-center space-x-3">
-              <AlignLeft width={16} height={16} />
-            </div>
           </div>
           <div className="mt-5 w-full relative">
             <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
@@ -83,7 +88,7 @@ const SideBar = () => {
               className="pl-8"
             />
           </div>
-          <div className='w-full overflow-scroll scroll-m-2'>
+          <div className='w-full'>
             <nav className='mt-8 w-full flex flex-col space-y-3 px-3 font-poppins font-normal text-base'>
               <Link className='flex space-x-3' href="/dashboard">
                 <div className='flex justify-center items-center'>
@@ -125,7 +130,25 @@ const SideBar = () => {
                   <TrakizAiIcon width={24} height={24} />
                 </div>
                 <div className='flex justify-center items-center'>
-                  <p>Trakiz AI</p>
+                  <Button className='bg-transparent p-0' ref={btnRef} onClick={onOpen}>
+                    <p >Trakiz AI</p>
+                  </Button>
+                  <Drawer
+                    isOpen={isOpen}
+                    placement='right'
+                    onClose={onClose}
+                    finalFocusRef={btnRef}
+                  >
+                    <DrawerOverlay />
+                    <DrawerContent>
+                      <div className='h-full flex justify-center items-center'>
+                        <DrawerCloseButton width={30} height={30} borderRadius={20} backgroundColor='black' />
+                      </div>
+                      <DrawerBody display='flex' position='absolute' right={0} height='100%' width={350} className='p-0'>
+                        <Chat onClose={onClose} />
+                      </DrawerBody>
+                    </DrawerContent>
+                  </Drawer>
                 </div>
               </Link>
               <Link className='flex space-x-3' href="/dashboard">
@@ -145,27 +168,8 @@ const SideBar = () => {
                 </div>
               </Link>
             </nav>
-            <nav className='mt-12 w-full flex flex-col space-y-3 px-3 font-poppins font-normal text-base'>
-              <span className='font-semibold text-base font-poppins'>Manage</span>
-              <Link className='flex space-x-3' href="/dashboard">
-                <div className='flex justify-center items-center'>
-                  <Users width={20} height={20} />
-                </div>
-                <div className='flex justify-center items-center'>
-                  <p>Team</p>
-                </div>
-              </Link>
-              <Link className='flex space-x-3' href="/dashboard">
-                <div className='flex justify-center items-center'>
-                  <CircleUserRound width={20} height={20} />
-                </div>
-                <div className='flex justify-center items-center'>
-                  <p>Profile</p>
-                </div>
-              </Link>
-            </nav>
           </div>
-          <div className='mt-5 w-full justify-center items-center'>
+          <div className='mt-28 w-full justify-center items-center'>
             <Card className='flex  space-x-2 border-none'>
               <div className='flex justify-center items-center'>
                 <Avatar>
@@ -191,8 +195,45 @@ const SideBar = () => {
         <div className="flex flex-col h-full p-4 font-poppins">
           <header className='flex justify-end'>
             <Avatar>
-              <AvatarImage width={30} height={30} className='rounded-full' src="https://avatars.githubusercontent.com/u/104624489?v=4" alt="@nitin6404" />
-              <AvatarFallback>CN</AvatarFallback>
+              <Dialog>
+                <DialogTrigger>
+                  <AvatarImage width={30} height={30} className='rounded-full' src="https://avatars.githubusercontent.com/u/104624489?v=4" alt="@nitin6404" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Edit profile</DialogTitle>
+                    <DialogDescription>
+                      Make changes to your profile here. Click save when you're done.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="Username" className="text-right">
+                        Username
+                      </Label>
+                      <Input
+                        id="Username"
+                        defaultValue="abc123"
+                        className="col-span-3"
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="Email" className="text-right">
+                        Email
+                      </Label>
+                      <Input
+                        id="Email"
+                        defaultValue="abc@def.com"
+                        className="col-span-3"
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button type="submit">Save changes</Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </Avatar>
           </header>
           <div className='mt-5 '>
