@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/components/component/theme-provider";
 import { Providers } from '@/app/providers'
+import { Toaster } from "react-hot-toast";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
@@ -32,7 +33,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-            {children}
+          {children}
+          <Toaster
+            toastOptions={{
+              style: {
+                textAlign: "center",
+              },
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

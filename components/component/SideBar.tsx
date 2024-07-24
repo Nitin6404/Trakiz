@@ -1,6 +1,6 @@
 "use client"
 
-import ReminderSlip from "@/components/component/ReminderSlip";
+// import ReminderSlip from "@/components/component/ReminderSlip";
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -38,11 +38,24 @@ import { useRef } from 'react';
 import Chat from "@/components/component/Chat"
 import { AlarmClockCheck } from "lucide-react"
 import LeftSideBar from "@/components/ui/LeftSideBar";
+import { createSupabaseClient } from "@/auth/client";
+import { useState } from "react";
+import { User } from "@supabase/supabase-js";
 
 const SideBar = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef<HTMLButtonElement | null>(null);
+
+  const [user, setUser] = useState<User | null>(null);
+
+  const { auth } = createSupabaseClient();
+
+  auth.onAuthStateChange((event, session) => {
+    setUser(session?.user || null);
+  });
+
+  console.log(user)
 
   return (
     <ResizablePanelGroup
@@ -54,7 +67,7 @@ const SideBar = () => {
       </ResizablePanel>
       <Separator orientation="vertical" />
       <ResizablePanel defaultSize={84}>
-        <ReminderSlip />
+        {/* <ReminderSlip /> */}
         <div className="flex flex-col h-full p-4 font-poppins">
           <header className='flex justify-end'>
             <Avatar>
