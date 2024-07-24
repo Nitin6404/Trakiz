@@ -34,7 +34,7 @@ const Header = () => {
           </nav>
         </div>
         <div className="hidden md:flex md:items-center space-x-4 font-manrope font-medium">
-          <Link href="#" className="text-white">
+          <Link href="/signin" className="text-white">
             Log In
           </Link>
           <div className="flex bg-[#FB9300] rounded transform hover:scale-90 duration-300 ease-in-out">

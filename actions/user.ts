@@ -1,7 +1,9 @@
 "use server";
 
+import { url } from "inspector";
 import { createSupabaseClient, protectRoute } from "../auth/server";
 import { getErrorMessage } from "../lib/utils";
+import { Provider } from "@supabase/supabase-js";
 
 export const createAccountAction = async (formData: FormData) => {
   try {
@@ -40,6 +42,26 @@ export const loginAction = async (formData: FormData) => {
     return { errorMessage: null };
   } catch (error) {
     return { errorMessage: getErrorMessage(error) };
+  }
+};
+
+export const signWithGoogleAction = async (provider: Provider) => {
+  try {
+    const { auth } = createSupabaseClient();
+
+    const { data, error } = await auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback`,
+      },
+    });
+    if (error) throw error;
+
+    if (error) throw error;
+
+    return { errorMessage: null, url: data.url };
+  } catch (error) {
+    return { errorMessage: "Error logging in" };
   }
 };
 
