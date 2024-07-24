@@ -33,8 +33,9 @@ import Chat from "@/components/component/Chat"
 import { useDisclosure } from '@chakra-ui/hooks'
 import React from 'react';
 import { useRef } from 'react';
+import { User } from "@supabase/supabase-js";
 
-export default function LeftSideBar() {
+export default function LeftSideBar({ user }: { user: User }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef<HTMLButtonElement | null>(null);
     return (
@@ -135,19 +136,19 @@ export default function LeftSideBar() {
                 </nav>
             </div>
             <div className='mt-28 w-full justify-center items-center'>
-                <Card className='flex  space-x-2 border-none'>
+                <Card className='flex space-x-2 border-none'>
                     <div className='flex justify-center items-center'>
                         <Avatar>
                             <AvatarImage width={35} height={35} className='rounded-full' src="https://avatars.githubusercontent.com/u/104624489?v=4" alt="@nitin6404" />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                     </div>
-                    <div>
+                    <div className="flex flex-col justify-center">
                         <CardTitle className='font-normal font-poppins text-sm'>
-                            Name
+                            {user ? user.email?.split('@')[0] : 'Name'}
                         </CardTitle>
-                        <CardDescription className='font-normal text-xs text-muted-foreground'>
-                            email@domain.com
+                        <CardDescription className='font-normal text-xs text-muted-foreground overflow-hidden overflow-ellipsis max-w-xs'>
+                            {user ? user.email : 'Email'}
                         </CardDescription>
                     </div>
                 </Card>

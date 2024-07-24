@@ -33,29 +33,19 @@ import {
   DrawerCloseButton,
 } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/hooks'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRef } from 'react';
 import Chat from "@/components/component/Chat"
 import { AlarmClockCheck } from "lucide-react"
 import LeftSideBar from "@/components/ui/LeftSideBar";
-import { createSupabaseClient } from "@/auth/client";
-import { useState } from "react";
+import useAuth from "@/hooks/useAuth"
 import { User } from "@supabase/supabase-js";
 
 const SideBar = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef<HTMLButtonElement | null>(null);
-
-  const [user, setUser] = useState<User | null>(null);
-
-  const { auth } = createSupabaseClient();
-
-  auth.onAuthStateChange((event, session) => {
-    setUser(session?.user || null);
-  });
-
-  console.log(user)
+  const user = useAuth();
 
   return (
     <ResizablePanelGroup
@@ -63,7 +53,7 @@ const SideBar = () => {
       className="border"
     >
       <ResizablePanel defaultSize={16}>
-        <LeftSideBar />
+        {user && <LeftSideBar user={user} />}
       </ResizablePanel>
       <Separator orientation="vertical" />
       <ResizablePanel defaultSize={84}>
@@ -113,7 +103,7 @@ const SideBar = () => {
             </Avatar>
           </header>
           <div className='mt-5 '>
-            <p className='text-4xl leading-10 font-bold font-montserrat'>Welcome back, Nitin</p>
+            <p className='text-4xl leading-10 font-bold font-montserrat'>Welcome back, {user?.email?.split('@')[0]}</p>
           </div>
           <div className='mt-4 w-full flex justify-between items-center'>
             <div>
