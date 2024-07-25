@@ -135,7 +135,7 @@ export default function LeftSideBar({ user }: { user: User }) {
                     </Link>
                 </nav>
             </div>
-            <div className='mt-28 w-full justify-center items-center'>
+            <div className='mt-64 w-full justify-center items-center'>
                 <Card className='flex space-x-2 border-none'>
                     <div className='flex justify-center items-center'>
                         <Avatar>

@@ -3,6 +3,7 @@ import { Providers } from '@/app/providers'
 import { Toaster } from "react-hot-toast";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 import "./globals.css";
 
 const fontHeading = Inter({
@@ -16,6 +17,13 @@ const fontBody = Inter({
   display: "swap",
   variable: "--font-body",
 });
+
+
+export const metadata: Metadata = {
+  title: 'Trakiz',
+  description: 'Trakiz is a simple, fast, and secure way to track your habits and goals.',
+  icons: "/logooftrakiz.png",
+}
 
 export default function RootLayout({
   children,

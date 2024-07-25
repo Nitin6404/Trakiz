@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 import { Loader2 } from 'lucide-react';
 import { signWithGoogleAction } from '@/actions/user'
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { Provider } from "@supabase/supabase-js";
 
 
@@ -13,7 +12,7 @@ export default function SignInWithGoogle() {
 
     const router = useRouter();
 
-    const [isPending, startTransition] = useTransition();
+    const [isGooglePending, startTransition] = useTransition();
 
     const handleSignInWithGoogleClick = (provider: Provider) => {
         startTransition(async () => {
@@ -29,12 +28,12 @@ export default function SignInWithGoogle() {
         <div className='flex justify-center w-[429px] mt-5'>
             <Button
                 onClick={() => handleSignInWithGoogleClick("google")}
-                disabled={isPending}
+                disabled={isGooglePending}
                 className='w-[430px] transition hover:scale-90 ease-in-out rounded-full bg-[#e48700] flex justify-center space-x-3'>
                 {
-                    isPending ?
+                    isGooglePending ?
                         (
-                            <Loader2 size={24} color='white' />
+                            <Loader2 className="animate-spin" size={24} color='white' />
                         ) :
                         (
                             <>

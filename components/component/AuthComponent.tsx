@@ -4,8 +4,8 @@ import SignInUp from '@/components/ui/SignInUp';
 
 export default function AuthComponent({ signInComponent }: { signInComponent: boolean }) {
     return (
-        <div className="w-full h-full flex space-x-5 bg-[#111010]">
-            <div>
+        <div className="w-full h-full flex  bg-[#111010]">
+            <div className='mt-14 ml-28'>
                 <div className="mt-8 ml-10">
                     <p className="font-roboto font-bold text-2xl">Trakiz</p>
                 </div>
@@ -45,7 +45,7 @@ export default function AuthComponent({ signInComponent }: { signInComponent: bo
                     <SignInUp signInComponent={signInComponent} />
                 </div>
             </div>
-            <div className="flex justify-center items-center m-5 bg-[#B6700B] w-[600px] rounded-xl">
+            <div className="flex justify-center items-center my-5 mx-5 w-full rounded-lg bg-[#B6700B]">
                 <ThinksToDoImage />
             </div>
         </div>
