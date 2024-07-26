@@ -4,6 +4,7 @@ import React, {
   useState,
   DragEvent,
   FormEvent,
+  useEffect,
 } from "react";
 import { motion } from "framer-motion";
 import {
@@ -21,13 +22,11 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import useTodo from "@/hooks/useTodo";
+import toast from "react-hot-toast";
+import { title } from "process";
 
 export const KanbanTodoBoard = () => {
-  const [cards, setCards] = useState([
-    { id: "1", title: "First Task", column: "ToDo" },
-    { id: "2", title: "Second Task", column: "In Progress" },
-    { id: "3", title: "Third Task", column: "Complete" },
-  ]);
 
   return (
     <div className="h-screen w-full bg-background text-neutral-50">
@@ -37,7 +36,16 @@ export const KanbanTodoBoard = () => {
 };
 
 const Board = () => {
-  const [cards, setCards] = useState(DEFAULT_CARDS);
+  const { todos, loading, error, addTodo, updateTodo, deleteTodo } = useTodo();
+  const [tasks, setTasks] = useState<TaskType[]>([])
+  useEffect(() => {
+    const defaultTasks: TaskType[] = todos.map((todo) => ({
+      title: todo.title,
+      id: todo.id.toString(),
+      column: todo.column as ColumnType,
+    }));
+    setTasks(defaultTasks)
+  }, [todos])
 
   return (
     <div className="flex h-full w-full gap-3 py-3">
@@ -45,31 +53,31 @@ const Board = () => {
         title="Backlog"
         column="backlog"
         headingColor="text-neutral-500"
-        cards={cards}
-        setCards={setCards}
+        tasks={tasks}
+        setTasks={setTasks}
       />
       <Column
         title="TODO"
         column="todo"
         headingColor="text-yellow-200"
-        cards={cards}
-        setCards={setCards}
+        tasks={tasks}
+        setTasks={setTasks}
       />
       <Column
         title="In progress"
         column="doing"
         headingColor="text-blue-200"
-        cards={cards}
-        setCards={setCards}
+        tasks={tasks}
+        setTasks={setTasks}
       />
       <Column
         title="Complete"
         column="done"
         headingColor="text-emerald-200"
-        cards={cards}
-        setCards={setCards}
+        tasks={tasks}
+        setTasks={setTasks}
       />
-      <BurnBarrel setCards={setCards} />
+      <BurnBarrel setTasks={setTasks} />
     </div>
   );
 };
@@ -77,21 +85,21 @@ const Board = () => {
 type ColumnProps = {
   title: string;
   headingColor: string;
-  cards: CardType[];
+  tasks: TaskType[];
   column: ColumnType;
-  setCards: Dispatch<SetStateAction<CardType[]>>;
+  setTasks: Dispatch<SetStateAction<TaskType[]>>;
 };
 
 const Column = ({
   title,
   headingColor,
-  cards,
+  tasks,
   column,
-  setCards,
+  setTasks,
 }: ColumnProps) => {
   const [active, setActive] = useState(false);
 
-  const handleDragStart = (e: DragEvent, card: CardType) => {
+  const handleDragStart = (e: DragEvent, card: TaskType) => {
     e.dataTransfer.setData("cardId", card.id);
   };
 
@@ -107,7 +115,7 @@ const Column = ({
     const before = element.dataset.before || "-1";
 
     if (before !== cardId) {
-      let copy = [...cards];
+      let copy = [...tasks];
 
       let cardToTransfer = copy.find((c) => c.id === cardId);
       if (!cardToTransfer) return;
@@ -126,7 +134,7 @@ const Column = ({
         copy.splice(insertAtIndex, 0, cardToTransfer);
       }
 
-      setCards(copy);
+      setTasks(copy);
     }
   };
 
@@ -192,14 +200,14 @@ const Column = ({
     setActive(false);
   };
 
-  const filteredCards = cards.filter((c) => c.column === column);
+  const filteredtasks = tasks.filter((c) => c.column === column);
 
   return (
     <div className="w-56 shrink-0">
       <div className="mb-3 flex items-center justify-between">
         <h3 className={`font-medium ${headingColor}`}>{title}</h3>
         <span className="rounded text-sm text-neutral-400">
-          {filteredCards.length}
+          {filteredtasks.length}
         </span>
       </div>
       <div
@@ -209,31 +217,31 @@ const Column = ({
         className={`h-full w-full transition-colors ${active ? "bg-neutral-800/50" : "bg-neutral-800/0"
           }`}
       >
-        {filteredCards.map((c) => {
-          return <Card key={c.id} {...c} handleDragStart={handleDragStart} setCards={setCards} />;
+        {filteredtasks.map((c) => {
+          return <Card key={c.id} {...c} handleDragStart={handleDragStart} setTasks={setTasks} />;
         })}
         <DropIndicator beforeId={null} column={column} />
-        <AddCard column={column} setCards={setCards} />
+        <AddCard column={column} setTasks={setTasks} />
       </div>
     </div>
   );
 };
 
-type CardProps = CardType & {
+type CardProps = TaskType & {
   handleDragStart: Function;
-  setCards: Dispatch<SetStateAction<CardType[]>>;
+  setTasks: Dispatch<SetStateAction<TaskType[]>>;
 };
 
 // Card component with edit functionality
-const Card = ({ title, id, column, handleDragStart, setCards }: CardProps) => {
+const Card = ({ title, id, column, handleDragStart, setTasks }: CardProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(title);
 
   const handleSaveEdit = () => {
     if (!editText.trim().length) return;
 
-    setCards((prevCards) =>
-      prevCards.map((card) =>
+    setTasks((prevtasks) =>
+      prevtasks.map((card) =>
         card.id === id ? { ...card, title: editText.trim() } : card
       )
     );
@@ -241,12 +249,12 @@ const Card = ({ title, id, column, handleDragStart, setCards }: CardProps) => {
   };
 
   const handleDelete = () => {
-    setCards((prevCards) => prevCards.filter((card) => card.id !== id));
+    setTasks((prevtasks) => prevtasks.filter((card) => card.id !== id));
   };
 
   const handleMarkAsCompleted = () => {
-    setCards((prevCards) =>
-      prevCards.map((card) =>
+    setTasks((prevtasks) =>
+      prevtasks.map((card) =>
         card.id === id ? { ...card, column: "done" } : card
       )
     );
@@ -335,9 +343,9 @@ const DropIndicator = ({ beforeId, column }: DropIndicatorProps) => {
 };
 
 const BurnBarrel = ({
-  setCards,
+  setTasks,
 }: {
-  setCards: Dispatch<SetStateAction<CardType[]>>;
+  setTasks: Dispatch<SetStateAction<TaskType[]>>;
 }) => {
   const [active, setActive] = useState(false);
 
@@ -353,7 +361,7 @@ const BurnBarrel = ({
   const handleDragEnd = (e: DragEvent) => {
     const cardId = e.dataTransfer.getData("cardId");
 
-    setCards((pv) => pv.filter((c) => c.id !== cardId));
+    setTasks((pv) => pv.filter((c) => c.id !== cardId));
 
     setActive(false);
   };
@@ -364,8 +372,8 @@ const BurnBarrel = ({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       className={`mt-10 grid h-56 w-56 shrink-0 place-content-center rounded border text-3xl ${active
-          ? "border-red-800 bg-red-800/20 text-red-500"
-          : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
+        ? "border-red-800 bg-red-800/20 text-red-500"
+        : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
         }`}
     >
       {active ? <Flame className="animate-bounce" /> : <Trash2 />}
@@ -375,27 +383,37 @@ const BurnBarrel = ({
 
 type AddCardProps = {
   column: ColumnType;
-  setCards: Dispatch<SetStateAction<CardType[]>>;
+  setTasks: Dispatch<SetStateAction<TaskType[]>>;
 };
 
-const AddCard = ({ column, setCards }: AddCardProps) => {
-  const [text, setText] = useState("");
+const AddCard = ({ column, setTasks }: AddCardProps) => {
+  const [title, setTitle] = useState("");
   const [adding, setAdding] = useState(false);
+  const { addTodo } = useTodo();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    if (!title.trim().length) return;
 
-    if (!text.trim().length) return;
-
-    const newCard = {
+    const newTitle = {
       column,
-      title: text.trim(),
+      title: title.trim(),
       id: Math.random().toString(),
     };
+    console.log("this is new title : " + newTitle.title);
 
-    setCards((pv) => [...pv, newCard]);
+    const addTodoToDB = async () => {
+      await addTodo(newTitle.title, column);
+    }
+    addTodoToDB();
+    console.log("Add todo called")
+    setTasks((pv) => [...pv, newTitle]);
 
     setAdding(false);
+    setTitle("");
+    setLoading(false);
   };
 
   return (
@@ -403,7 +421,7 @@ const AddCard = ({ column, setCards }: AddCardProps) => {
       {adding ? (
         <motion.form layout onSubmit={handleSubmit}>
           <textarea
-            onChange={(e) => setText(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             autoFocus
             placeholder="Add new task..."
             className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-50 placeholder-violet-300 focus:outline-0"
@@ -430,8 +448,16 @@ const AddCard = ({ column, setCards }: AddCardProps) => {
           onClick={() => setAdding(true)}
           className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
         >
-          <span>Add card</span>
-          <Plus />
+          {
+            loading ? (
+              <div className="animate-spin h-4 w-4 rounded-full border-t-2 border-b-2 border-neutral-50"></div>
+            ) : (
+              <>
+                <span>Add new task</span>
+                <Plus />
+              </>
+            )
+          }
         </motion.button>
       )}
     </>
@@ -440,38 +466,8 @@ const AddCard = ({ column, setCards }: AddCardProps) => {
 
 type ColumnType = "backlog" | "todo" | "doing" | "done";
 
-type CardType = {
+type TaskType = {
   title: string;
   id: string;
   column: ColumnType;
 };
-
-const DEFAULT_CARDS: CardType[] = [
-  // BACKLOG
-  { title: "Look into render bug in dashboard", id: "1", column: "backlog" },
-  { title: "SOX compliance checklist", id: "2", column: "backlog" },
-  { title: "[SPIKE] Migrate to Azure", id: "3", column: "backlog" },
-  { title: "Document Notifications service", id: "4", column: "backlog" },
-  // TODO
-  {
-    title: "Research DB options for new microservice",
-    id: "5",
-    column: "todo",
-  },
-  { title: "Postmortem for outage", id: "6", column: "todo" },
-  { title: "Sync with product on Q3 roadmap", id: "7", column: "todo" },
-
-  // DOING
-  {
-    title: "Refactor context providers to use Zustand",
-    id: "8",
-    column: "doing",
-  },
-  { title: "Add logging to daily CRON", id: "9", column: "doing" },
-  // DONE
-  {
-    title: "Set up DD dashboards for Lambda listener",
-    id: "10",
-    column: "done",
-  },
-];

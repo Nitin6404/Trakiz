@@ -1,24 +1,25 @@
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { CircleUserRound } from 'lucide-react';
 
-export default function ChatAvatar({isUser}: {isUser: boolean}) {
+export default function ChatAvatar({ isUser }: { isUser: boolean }) {
     return (
-        isUser ? 
-            <UserAvatar /> : 
+        isUser ?
+            <UserAvatar /> :
             <AssistantAvatar />
     );
 }
 
-function UserAvatar(){
-    return(
+function UserAvatar() {
+    return (
         <Avatar >
-            <AvatarImage className='h-[33px] w-[32px] rounded-full' src="https://avatars.githubusercontent.com/u/104624489?v=4" alt="User" />
+            <CircleUserRound height={30} width={30} />
             <AvatarFallback>User</AvatarFallback>
         </Avatar>
     )
 }
 
-function AssistantAvatar(){
-    return(
+function AssistantAvatar() {
+    return (
         <Avatar >
             <AvatarImage height={36} width={37} src="/logooftrakiz.png" alt="Assistant" />
             <AvatarFallback>Assistant</AvatarFallback>

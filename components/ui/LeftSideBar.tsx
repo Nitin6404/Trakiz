@@ -6,6 +6,9 @@ import {
     Goal,
     AlarmClockCheck,
     LineChart,
+    Lock,
+    SquareArrowOutUpRight,
+    CircleUserRound
 } from "lucide-react"
 import {
     Card,
@@ -25,8 +28,6 @@ import {
 } from '@chakra-ui/react'
 import {
     Avatar,
-    AvatarImage,
-    AvatarFallback
 } from '@radix-ui/react-avatar';
 import TrakizAiIcon from "@/components/ui/trakiz-ai-icon"
 import Chat from "@/components/component/Chat"
@@ -139,8 +140,7 @@ export default function LeftSideBar({ user }: { user: User }) {
                 <Card className='flex space-x-2 border-none'>
                     <div className='flex justify-center items-center'>
                         <Avatar>
-                            <AvatarImage width={35} height={35} className='rounded-full' src="https://avatars.githubusercontent.com/u/104624489?v=4" alt="@nitin6404" />
-                            <AvatarFallback>CN</AvatarFallback>
+                            <CircleUserRound width={30} height={30} />
                         </Avatar>
                     </div>
                     <div className="flex flex-col justify-center">

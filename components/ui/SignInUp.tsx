@@ -10,7 +10,7 @@ import { createAccountAction, loginAction } from '@/actions/user'
 export default function SignInUp({ signInComponent }: { signInComponent: boolean }) {
     const router = useRouter();
 
-    const [isPending, startTransition] = useTransition();
+    const [isSignInWithPasswordPending, startTransition] = useTransition();
 
     const handleClickCreateAccountButton = (formData: FormData) => {
         startTransition(async () => {
@@ -56,7 +56,7 @@ export default function SignInUp({ signInComponent }: { signInComponent: boolean
                         name="email"
                         className="block w-[429px] pl-12 pr-4 py-2 text-white bg-transparent placeholder:text-white border-b-2 border-[#e48700] font-manrope font-medium text-lg focus:outline-none focus:border-[#e48700]"
                         placeholder="Enter your email address"
-                        disabled={isPending}
+                        disabled={isSignInWithPasswordPending}
                     />
                 </div>
                 <label
@@ -73,16 +73,16 @@ export default function SignInUp({ signInComponent }: { signInComponent: boolean
                         name="password"
                         className="block w-[429px] pl-12 pr-4 py-2 text-white bg-transparent placeholder:text-white border-b-2 border-[#e48700] font-manrope font-medium text-lg focus:outline-none focus:border-[#e48700]"
                         placeholder="Enter your password"
-                        disabled={isPending}
+                        disabled={isSignInWithPasswordPending}
                     />
                 </div>
             </div>
             <div className="mt-5">
                 <button
                     className='w-[430px] h-10 transition hover:scale-90 ease-in-out rounded-full bg-[#e48700] flex justify-center items-center'
-                    disabled={isPending}
+                    disabled={isSignInWithPasswordPending}
                 >
-                    {isPending ? <Loader2 className="animate-spin" /> : "Go ahead! - its free"}
+                    {isSignInWithPasswordPending ? <Loader2 className="animate-spin" /> : "Go ahead! - its free"}
                 </button>
                 <p className='font-poppins font-semibold text-base text-[#b5b5b5] mt-5 text-center w-[429px]'>or continue with</p>
                 <SignInWithGoogle />

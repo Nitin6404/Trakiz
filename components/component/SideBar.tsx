@@ -36,7 +36,7 @@ import { useDisclosure } from '@chakra-ui/hooks'
 import React, { useEffect } from 'react';
 import { useRef } from 'react';
 import Chat from "@/components/component/Chat"
-import { AlarmClockCheck } from "lucide-react"
+import { AlarmClockCheck, CircleUserRound } from "lucide-react"
 import LeftSideBar from "@/components/ui/LeftSideBar";
 import useAuth from "@/hooks/useAuth"
 import { User } from "@supabase/supabase-js";
@@ -63,8 +63,7 @@ const SideBar = () => {
             <Avatar>
               <Dialog>
                 <DialogTrigger>
-                  <AvatarImage width={30} height={30} className='rounded-full' src="https://avatars.githubusercontent.com/u/104624489?v=4" alt="@nitin6404" />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <CircleUserRound width={30} height={30} />
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>

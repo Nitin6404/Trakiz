@@ -12,9 +12,20 @@ export async function middleware(request: NextRequest) {
 
   const protectedRoutes = ["/dashboard"];
   const authRoutes = ["/signup", "/signin"];
+  const publicRoutes = ["/"];
 
   const isProtectedRoute = protectedRoutes.includes(path);
   const isAuthRoute = authRoutes.includes(path);
+  const isPublicRoute = publicRoutes.includes(path);
+
+  if (isPublicRoute) {
+    const user = await getUser(request, response);
+
+    if (user) {
+      console.log(user);
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+  }
 
   if (isProtectedRoute || isAuthRoute) {
     const user = await getUser(request, response);
