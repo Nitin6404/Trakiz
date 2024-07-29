@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -16,3 +17,19 @@ export const getErrorMessage = (
   }
   return errorMessage;
 };
+
+export const handleError = (error: unknown) => {
+  const errorMessage = getErrorMessage(error);
+  toast.error(errorMessage, {
+    position: "bottom-right",
+    style: {
+      background: "#ff0000",
+      color: "#ffffff",
+    },
+  });
+};
+
+export function handleServerError(error: unknown) {
+  console.error("Server Error:", error);
+  return { errorMessage: "An error occurred. Please try again." };
+}
