@@ -4,6 +4,7 @@ import { supabase } from "@/utils/supabaseClient";
 import { handleServerError } from "@/lib/utils";
 import { getUser } from "@/auth/server";
 import { randomUUID } from "crypto";
+import { redirect } from "next/navigation";
 
 interface Todo {
   id: string;
@@ -23,10 +24,18 @@ export const getSession = async () => {
 };
 
 export const getTodos = async (): Promise<Todo[]> => {
+  if (!(await isAuthenticated())) {
+    handleServerError(new Error("Unauthorized"));
+    throw new Error("Unauthorized");
+    redirect("/login");
+  }
   try {
+    const user = await getUser();
+    const userId = user?.id;
     const { data, error } = await supabase
       .from("todos")
-      .select("title, id, column");
+      .select("title, id, column")
+      .eq("userId", userId);
     if (error) throw error;
     return data;
   } catch (error) {
