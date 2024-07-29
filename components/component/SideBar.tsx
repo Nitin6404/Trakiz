@@ -20,8 +20,6 @@ import {
 } from "@/components/ui/dialog"
 import {
   Avatar,
-  AvatarImage,
-  AvatarFallback
 } from '@radix-ui/react-avatar';
 import TrakizAiIcon from "@/components/ui/trakiz-ai-icon"
 import { KanbanTodoBoard } from "@/components/component/KanbanTodoBoard"
@@ -33,30 +31,45 @@ import {
   DrawerCloseButton,
 } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/hooks'
-import React, { useEffect } from 'react';
+import React, { useTransition } from 'react';
 import { useRef } from 'react';
 import Chat from "@/components/component/Chat"
-import { AlarmClockCheck, CircleUserRound } from "lucide-react"
+import { AlarmClockCheck, CircleUserRound, Loader2 } from "lucide-react"
 import LeftSideBar from "@/components/ui/LeftSideBar";
 import useAuth from "@/hooks/useAuth"
-import { User } from "@supabase/supabase-js";
+import { signOutAction } from "@/actions/user"
+import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 
 const SideBar = () => {
-
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const user = useAuth();
 
+  const router = useRouter();
+
+  const [isLogoutPending, startTransition] = useTransition();
+
+  const handleSignInWithGoogleClick = () => {
+    startTransition(async () => {
+      const { errorMessage } = await signOutAction();
+      if (!errorMessage) {
+        router.push('/');
+      } else {
+        toast.error(errorMessage);
+      }
+    });
+  };
   return (
     <ResizablePanelGroup
       direction="horizontal"
       className="border"
     >
-      <ResizablePanel defaultSize={16}>
+      <ResizablePanel defaultSize={17}>
         {user && <LeftSideBar user={user} />}
       </ResizablePanel>
       <Separator orientation="vertical" />
-      <ResizablePanel defaultSize={84}>
+      <ResizablePanel defaultSize={83}>
         {/* <ReminderSlip /> */}
         <div className="flex flex-col h-full p-4 font-poppins">
           <header className='flex justify-end'>
@@ -94,9 +107,18 @@ const SideBar = () => {
                       />
                     </div>
                   </div>
-                  <DialogFooter>
-                    <Button type="submit">Save changes</Button>
-                  </DialogFooter>
+                  <Button type="submit">Save changes</Button>
+                  <Separator className="my-5" />
+                  <Button
+                    disabled={isLogoutPending}
+                    onClick={() => handleSignInWithGoogleClick()}
+                    variant="secondary">
+                    {isLogoutPending ?
+                      <Loader2 className="animate-spin" size={24} color='white' />
+                      :
+                      'Logout'
+                    }
+                  </Button>
                 </DialogContent>
               </Dialog>
             </Avatar>

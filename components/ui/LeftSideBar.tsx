@@ -81,12 +81,19 @@ export default function LeftSideBar({ user }: { user: User }) {
                             <p>Next Week</p>
                         </div>
                     </Link>
-                    <Link className='flex space-x-3' href="/dashboard">
+                    <Link
+                        onClick={(e) => {
+                            e.preventDefault();
+                        }}
+                        className='flex space-x-3 cursor-not-allowed' href="/dashboard">
                         <div className='flex justify-center items-center'>
-                            <Goal width={20} height={20} />
+                            <Goal color="#939090" width={20} height={20} />
                         </div>
                         <div className='flex justify-center items-center'>
-                            <p>Goals</p>
+                            <p className="text-[#939090]">Goals</p>
+                        </div>
+                        <div>
+                            <Lock color="#939090" width={20} height={20} />
                         </div>
                     </Link>
                 </nav>
@@ -118,20 +125,32 @@ export default function LeftSideBar({ user }: { user: User }) {
                             </Drawer>
                         </div>
                     </Link>
-                    <Link className='flex space-x-3' href="/dashboard">
+                    <Link onClick={(e) => {
+                        e.preventDefault();
+                    }}
+                        className='flex space-x-3 cursor-not-allowed' href="/dashboard">
                         <div className='flex justify-center items-center'>
-                            <AlarmClockCheck width={20} height={20} />
+                            <AlarmClockCheck color="#939090" width={20} height={20} />
                         </div>
                         <div className='flex justify-center items-center'>
-                            <p>Pomodoro Timer</p>
+                            <p className="text-[#939090]">Pomodoro Timer</p>
+                        </div>
+                        <div>
+                            <Lock color="#939090" width={20} height={20} />
                         </div>
                     </Link>
-                    <Link className='flex space-x-3' href="/dashboard">
+                    <Link onClick={(e) => {
+                        e.preventDefault();
+                    }}
+                        className='flex space-x-3 cursor-not-allowed' href="/dashboard">
                         <div className='flex justify-center items-center'>
-                            <LineChart width={20} height={20} />
+                            <LineChart color="#939090" width={20} height={20} />
                         </div>
                         <div className='flex justify-center items-center'>
-                            <p>Progress Graph</p>
+                            <p className="text-[#939090]">Progress Graph</p>
+                        </div>
+                        <div>
+                            <Lock color="#939090" width={20} height={20} />
                         </div>
                     </Link>
                 </nav>
