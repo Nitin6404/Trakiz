@@ -12,7 +12,11 @@ export default function Board() {
         const fetchTodos = async () => {
             try {
                 const todos = await getTodos();
-                setTasks(todos);
+                const convertedTasks = todos.map(todo => ({
+                    ...todo,
+                    column: todo.column as ColumnType
+                }));
+                setTasks(convertedTasks);
             } catch (error) {
                 console.error(error);
             } finally {

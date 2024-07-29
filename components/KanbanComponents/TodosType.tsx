@@ -42,6 +42,7 @@ export type TaskType = {
 };
 
 export interface DragEvent {
+    clientY: number;
     preventDefault: () => void;
     dataTransfer: {
         setData: (key: string, value: string) => void;
