@@ -7,8 +7,9 @@ import {
     AlarmClockCheck,
     LineChart,
     Lock,
-    SquareArrowOutUpRight,
-    CircleUserRound
+    ArrowRight,
+    CircleUserRound,
+    MessageCircleQuestion
 } from "lucide-react"
 import {
     Card,
@@ -75,10 +76,13 @@ export default function LeftSideBar({ user }: { user: User }) {
                     </Link>
                     <Link className='flex space-x-3' href="/dashboard">
                         <div className='flex justify-center items-center'>
-                            <ChevronsUp width={20} height={20} />
+                            <ChevronsUp color="#939090" width={20} height={20} />
                         </div>
                         <div className='flex justify-center items-center'>
-                            <p>Next Week</p>
+                            <p className="text-[#939090]">Next Week</p>
+                        </div>
+                        <div>
+                            <Lock color="#939090" width={20} height={20} />
                         </div>
                     </Link>
                     <Link
@@ -155,7 +159,20 @@ export default function LeftSideBar({ user }: { user: User }) {
                     </Link>
                 </nav>
             </div>
-            <div className='mt-64 w-full justify-center items-center'>
+            <Link href="https://docs.google.com/forms/d/e/1FAIpQLScjfWW_XL1OQBFpyW7X9BO2XITM9JnaI50OX5-7bzXjRJw68g/viewform" target="_blank">
+                <div className="bg-slate-600 flex items-center justify-center rounded-md w-52 h-10 mt-52 mb-5 space-x-2">
+                    <div>
+                        <MessageCircleQuestion />
+                    </div>
+                    <div>
+                        Help us improve
+                    </div>
+                    <div>
+                        <ArrowRight />
+                    </div>
+                </div>
+            </Link>
+            <div className=' w-full justify-center items-center'>
                 <Card className='flex space-x-2 border-none'>
                     <div className='flex justify-center items-center'>
                         <Avatar>
