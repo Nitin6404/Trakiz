@@ -29,7 +29,7 @@ export default function Board() {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <div className="flex h-full w-full gap-3 py-3">
+        <div className="flex h-full w-full gap-3 py-3 overflow-y-scroll">
             {['backlog', 'todo', 'doing', 'done'].map((column) => (
                 <Column
                     key={column}
