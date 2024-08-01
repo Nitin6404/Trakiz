@@ -29,7 +29,7 @@ export default function Board() {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <div className="flex h-full w-full gap-3 py-3 overflow-y-scroll">
+        <div className="flex h-full w-full gap-3 py-3">
             {['backlog', 'todo', 'doing', 'done'].map((column) => (
                 <Column
                     key={column}
@@ -38,6 +38,7 @@ export default function Board() {
                     headingColor={`text-${column}-200`}
                     tasks={tasks}
                     setTasks={setTasks}
+
                 />
             ))}
             <BurnBarrel setTasks={setTasks} />
