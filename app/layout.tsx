@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/components/component/theme-provider";
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Providers } from '@/app/providers'
 import { Toaster } from "react-hot-toast";
 import { Inter } from "next/font/google";
@@ -43,6 +44,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <SpeedInsights />
           <Analytics />
           <Toaster
             toastOptions={{
