@@ -160,7 +160,7 @@ export default function LeftSideBar({ user }: { user: User }) {
                 </nav>
             </div>
             <Link href="https://docs.google.com/forms/d/e/1FAIpQLScjfWW_XL1OQBFpyW7X9BO2XITM9JnaI50OX5-7bzXjRJw68g/viewform" target="_blank">
-                <div className="bg-slate-600 flex items-center justify-center rounded-md w-52 h-10 mt-52 mb-5 space-x-2">
+                <div className="bg-slate-600 flex items-center justify-center rounded-md w-52 h-10 mt-8 mb-5 space-x-2">
                     <div>
                         <MessageCircleQuestion />
                     </div>

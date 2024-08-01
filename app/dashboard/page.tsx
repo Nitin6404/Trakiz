@@ -1,9 +1,9 @@
-import SideBar from "@/components/component/SideBar"
+import DashboardComponent from "@/components/component/DashboardComponent"
 
 export default async function Page() {
   return (
     <div className="w-full h-full ">
-      <SideBar />
+      <DashboardComponent />
     </div>
   )
 } 

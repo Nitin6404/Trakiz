@@ -5,12 +5,10 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
-import { KanbanTodoBoard } from "@/components/component/KanbanTodoBoard"
 import React from 'react';
 import LeftSideBar from "@/components/ui/LeftSideBar";
-import { OnboardingMessage } from "@/components/RightSideBarComponents/OnboaringMessage"
-import { HeaderAvatar } from "../RightSideBarComponents/HeaderAvatar"
 import useAuth from "@/hooks/useAuth";
+import { RightSideBarComponents } from "@/components/RightSideBarComponents/RightSideBar";
 
 const SideBar = () => {
   const user = useAuth();
@@ -25,16 +23,7 @@ const SideBar = () => {
       </ResizablePanel>
       <Separator orientation="vertical" />
       <ResizablePanel defaultSize={83}>
-        {/* <ReminderSlip /> */}
-        <div className="flex flex-col h-full p-4 font-poppins">
-          <header className='flex justify-end'>
-            <HeaderAvatar />
-          </header>
-          <OnboardingMessage />
-          <div className='mt-4'>
-            <KanbanTodoBoard />
-          </div>
-        </div>
+        <RightSideBarComponents />
       </ResizablePanel>
     </ResizablePanelGroup >
   )
