@@ -40,7 +40,7 @@ export default function SignInUp({ signInComponent }: { signInComponent: boolean
         <form
             action={signInComponent ? handleClickLoginButton : handleClickCreateAccountButton}
         >
-            <div className="relative mt-16">
+            <div className="relative mt-12">
                 <label
                     htmlFor="email"
                     className="block text-base font-medium text-[#999999]"

@@ -34,7 +34,7 @@ const HeroSection = () => {
               WARNING🤯{" "}
             </span>
           </div>
-          <Link href="/signin">
+          <Link href="/signup">
             <button
               onClick={handleLoading}
               className="bg-[#FB9333] w-[275px]  md:w-[330px] md:h-[70px] font-bold text-base md:text-[18px] text-white py-3 md:px-6 md:py-3 rounded-full flex justify-center items-center mx-auto"

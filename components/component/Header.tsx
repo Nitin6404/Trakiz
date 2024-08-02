@@ -38,7 +38,7 @@ const Header = () => {
             Log In
           </Link>
           <div className="flex bg-[#FB9300] rounded transform hover:scale-90 duration-300 ease-in-out">
-            <Link href="/signin">
+            <Link href="/signup">
               <button className="text-white pl-4 py-2">
                 GET STARTED FOR FREE
               </button>

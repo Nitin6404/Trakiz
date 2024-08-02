@@ -5,11 +5,11 @@ import SignInUp from '@/components/ui/SignInUp';
 export default function AuthComponent({ signInComponent }: { signInComponent: boolean }) {
     return (
         <div className="w-full h-full flex  bg-[#111010]">
-            <div className='mt-14 ml-28'>
-                <div className="mt-8 ml-10">
+            <div className='mt-10 ml-20'>
+                <div className="-ml-10">
                     <p className="font-roboto font-bold text-2xl">Trakiz</p>
                 </div>
-                <div className="mt-20 ml-32 w-[488px]">
+                <div className="mt-28 ml-28 mr-24 w-[488px]">
                     <div className="flex flex-col">
                         <p className="font-poppins font-medium text-3xl">
                             {signInComponent ? 'Sign In' : 'Sign Up'}
