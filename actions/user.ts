@@ -89,6 +89,27 @@ export const forgotPasswordAction = async (email: string) => {
   }
 };
 
+export const updateUserPassword = async (password: string) => {
+  try {
+    await protectRoute();
+    const { auth } = createSupabaseClient();
+    const { data, error } = await auth.updateUser({
+      password,
+    });
+    if (error) {
+      throw error;
+    } else {
+      handleSuccess("Password changed Successfully");
+      return {
+        successMessage: getSuccessMessage("Password changed Successfully"),
+      };
+    }
+  } catch (error: unknown) {
+    handleError(error);
+    return { errorMessage: getErrorMessage(error) };
+  }
+};
+
 export const signOutAction = async () => {
   try {
     await protectRoute();
