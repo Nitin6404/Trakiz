@@ -18,6 +18,18 @@ export const getErrorMessage = (
   return errorMessage;
 };
 
+export const getSuccessMessage = (
+  message: string,
+  defaultMessage: string = "Success"
+) => {
+  console.log(message);
+  let successMessage = defaultMessage;
+  if (message.length < 100 && message.length > 0) {
+    successMessage = message;
+  }
+  return successMessage;
+};
+
 export const handleError = (error: unknown) => {
   const errorMessage = getErrorMessage(error);
   toast.error(errorMessage, {
@@ -25,6 +37,17 @@ export const handleError = (error: unknown) => {
     style: {
       background: "#ff0000",
       color: "#ffffff",
+    },
+  });
+};
+
+export const handleSuccess = (message: string) => {
+  const successMessage = getSuccessMessage(message);
+  toast.success(successMessage, {
+    position: "bottom-right",
+    style: {
+      background: "#00ff00",
+      color: "#000000",
     },
   });
 };

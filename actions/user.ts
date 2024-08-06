@@ -1,8 +1,13 @@
 "use server";
 
-import { url } from "inspector";
+import { get } from "axios";
 import { createSupabaseClient, protectRoute } from "../auth/server";
-import { getErrorMessage } from "../lib/utils";
+import {
+  getErrorMessage,
+  getSuccessMessage,
+  handleError,
+  handleSuccess,
+} from "../lib/utils";
 import { Provider } from "@supabase/supabase-js";
 
 export const createAccountAction = async (formData: FormData) => {
@@ -62,6 +67,25 @@ export const signWithGoogleAction = async (provider: Provider) => {
     return { errorMessage: null, url: data.url };
   } catch (error) {
     return { errorMessage: "Error logging in" };
+  }
+};
+
+export const forgotPasswordAction = async (email: string) => {
+  try {
+    await protectRoute();
+    const { auth } = createSupabaseClient();
+    const { data, error } = await auth.resetPasswordForEmail(email);
+    if (error) {
+      throw error;
+    } else {
+      handleSuccess("Password reset email sent");
+      return {
+        successMessage: getSuccessMessage("Password reset email sent"),
+      };
+    }
+  } catch (error: unknown) {
+    handleError(error);
+    return { errorMessage: getErrorMessage(error) };
   }
 };
 
