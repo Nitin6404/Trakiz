@@ -6,6 +6,7 @@ import { useTransition } from 'react';
 import toast from 'react-hot-toast';
 import { Loader2 } from 'lucide-react';
 import { createAccountAction, loginAction } from '@/actions/user'
+import Link from 'next/link';
 
 export default function SignInUp({ signInComponent }: { signInComponent: boolean }) {
     const router = useRouter();
@@ -40,7 +41,7 @@ export default function SignInUp({ signInComponent }: { signInComponent: boolean
         <form
             action={signInComponent ? handleClickLoginButton : handleClickCreateAccountButton}
         >
-            <div className="relative mt-12">
+            <div className="relative mt-10">
                 <label
                     htmlFor="email"
                     className="block text-base font-medium text-[#999999]"
@@ -76,6 +77,13 @@ export default function SignInUp({ signInComponent }: { signInComponent: boolean
                         disabled={isSignInWithPasswordPending}
                     />
                 </div>
+            </div>
+            <div className='flex w-[429px] justify-end mt-2'>
+                <Link href='/forgot-password'>
+                    <p className='font-poppins text-base hover:underline hover:cursor-pointer font-medium'>
+                        Forgot password?
+                    </p>
+                </Link>
             </div>
             <div className="mt-5">
                 <button

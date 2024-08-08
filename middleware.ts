@@ -11,7 +11,8 @@ export async function middleware(request: NextRequest) {
   const path = new URL(request.url).pathname;
 
   const protectedRoutes = ["/dashboard"];
-  const authRoutes = ["/signup", "/signin"];
+  const authRoutes = ["/signup", "/signin", "/forgot-password"];
+  const setPasswordRoutes = ["/set-new-password"];
   const publicRoutes = ["/"];
 
   const isProtectedRoute = protectedRoutes.includes(path);
@@ -36,6 +37,14 @@ export async function middleware(request: NextRequest) {
 
     if (isAuthRoute && user) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+  }
+
+  if (setPasswordRoutes.includes(path)) {
+    const user = await getUser(request, response);
+
+    if (!user) {
+      return NextResponse.redirect(new URL("/signin", request.url));
     }
   }
 

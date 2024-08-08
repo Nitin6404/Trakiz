@@ -9,6 +9,7 @@ import {
   handleSuccess,
 } from "../lib/utils";
 import { Provider } from "@supabase/supabase-js";
+import { redirect } from "next/dist/server/api-utils";
 
 export const createAccountAction = async (formData: FormData) => {
   try {
@@ -70,42 +71,33 @@ export const signWithGoogleAction = async (provider: Provider) => {
   }
 };
 
-export const forgotPasswordAction = async (email: string) => {
+export const forgotPasswordAction = async (formData: FormData) => {
   try {
-    await protectRoute();
+    const email = formData.get("email") as string;
+    const redirectUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/set-new-password`!;
     const { auth } = createSupabaseClient();
-    const { data, error } = await auth.resetPasswordForEmail(email);
-    if (error) {
-      throw error;
-    } else {
-      handleSuccess("Password reset email sent");
-      return {
-        successMessage: getSuccessMessage("Password reset email sent"),
-      };
-    }
-  } catch (error: unknown) {
-    handleError(error);
+    const { data, error } = await auth.resetPasswordForEmail(email, {
+      redirectTo: redirectUrl,
+    });
+    if (error) throw error;
+
+    return { errorMessage: null };
+  } catch (error) {
     return { errorMessage: getErrorMessage(error) };
   }
 };
 
-export const updateUserPassword = async (password: string) => {
+export const updateUserPassword = async (formData: FormData) => {
   try {
-    await protectRoute();
+    const password = formData.get("password") as string;
     const { auth } = createSupabaseClient();
     const { data, error } = await auth.updateUser({
       password,
     });
-    if (error) {
-      throw error;
-    } else {
-      handleSuccess("Password changed Successfully");
-      return {
-        successMessage: getSuccessMessage("Password changed Successfully"),
-      };
-    }
-  } catch (error: unknown) {
-    handleError(error);
+    if (error) throw error;
+
+    return { errorMessage: null };
+  } catch (error) {
     return { errorMessage: getErrorMessage(error) };
   }
 };

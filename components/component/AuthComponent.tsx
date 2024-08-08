@@ -9,7 +9,7 @@ export default function AuthComponent({ signInComponent }: { signInComponent: bo
                 <div className="-ml-10">
                     <p className="font-roboto font-bold text-2xl">Trakiz</p>
                 </div>
-                <div className="mt-14 ml-20 mr-18 w-[488px]">
+                <div className="mt-12 ml-20 mr-18 w-[488px]">
                     <div className="flex flex-col">
                         <p className="font-poppins font-medium text-3xl">
                             {signInComponent ? 'Sign In' : 'Sign Up'}
@@ -35,7 +35,7 @@ export default function AuthComponent({ signInComponent }: { signInComponent: bo
                                         You can
                                         <Link href="/signin">
                                             <span className="text-[#e48700] font-semibold pl-2 hover:underline">
-                                                Login here!
+                                                here!
                                             </span>
                                         </Link>
                                     </p>
