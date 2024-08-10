@@ -28,8 +28,9 @@ export default function AuthComponent() {
     return (
         <form
             action={handleForgotPasswordButton}
+            className='w-full h-full flex bg-[#111010] text-[#ffffff]'
         >
-            <div className="w-full h-full flex  bg-[#111010]">
+            <div className="w-full h-full flex">
                 <div className='mt-10 ml-20'>
                     <div className="-ml-10">
                         <p className="font-roboto font-bold text-2xl">Trakiz</p>
@@ -81,9 +82,9 @@ export default function AuthComponent() {
                                     </button>
                                 </div>
                                 <Link href='/signin'>
-                                    <div className='flex justify-center items-center mt-8 space-x-2 hover:underline hover:cursor-pointer'>
-                                        <ArrowLeft />
-                                        <p className='font-poppins font-normal text-base'>
+                                    <div className='flex justify-center items-center mt-8 space-x-2'>
+                                        <ArrowLeft className='hover:underline hover:cursor-pointer' />
+                                        <p className='font-poppins font-normal text-base hover:underline hover:cursor-pointer'>
                                             Back to log in
                                         </p>
                                     </div>

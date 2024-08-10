@@ -1,15 +1,8 @@
 "use server";
 
-import { get } from "axios";
 import { createSupabaseClient, protectRoute } from "../auth/server";
-import {
-  getErrorMessage,
-  getSuccessMessage,
-  handleError,
-  handleSuccess,
-} from "../lib/utils";
+import { getErrorMessage } from "../lib/utils";
 import { Provider } from "@supabase/supabase-js";
-import { redirect } from "next/dist/server/api-utils";
 
 export const createAccountAction = async (formData: FormData) => {
   try {
@@ -87,13 +80,33 @@ export const forgotPasswordAction = async (formData: FormData) => {
   }
 };
 
-export const updateUserPassword = async (formData: FormData) => {
+export const updateUserPassword = async (
+  formData: FormData,
+  authCodeFromUrl: string
+) => {
   try {
     const password = formData.get("password") as string;
+    const { errorMessage } = await exchangeCodeForSession(authCodeFromUrl);
+    if (errorMessage) throw new Error(errorMessage);
     const { auth } = createSupabaseClient();
     const { data, error } = await auth.updateUser({
       password,
     });
+    console.log("data from update user", data);
+    console.log("error from update user", error);
+    if (error) throw error;
+
+    return { errorMessage: null };
+  } catch (error) {
+    return { errorMessage: getErrorMessage(error) };
+  }
+};
+
+export const exchangeCodeForSession = async (authCodeFromUrl: string) => {
+  try {
+    console.log("authCodeFromUrl : ", authCodeFromUrl);
+    const { auth } = createSupabaseClient();
+    const { data, error } = await auth.exchangeCodeForSession(authCodeFromUrl!);
     if (error) throw error;
 
     return { errorMessage: null };

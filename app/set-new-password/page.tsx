@@ -1,9 +1,11 @@
 'use client';
 import { updateUserPassword } from '@/actions/user';
 import ThinksToDoImage from '@/components/icons/ThinksToDoImage';
+import { handleSuccess } from '@/lib/utils';
 import { KeyRound, Mail, ArrowLeft, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { NextRequest } from 'next/server';
 import { useTransition, useState } from 'react';
 import toast from 'react-hot-toast';
 // import CheckYourEmailForVerification from '@/components/AuthCompponents/YourEmailForVerification';
@@ -14,6 +16,10 @@ export default function AuthComponent() {
     const router = useRouter();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const searchParams = useSearchParams()
+
+    const authCodeForExchangeSession = searchParams.get('code')
 
     const [isSetNewPasswordPending, startTransition] = useTransition();
 
@@ -29,12 +35,21 @@ export default function AuthComponent() {
     const handleSetNewPasswordButton = async (formData: FormData) => {
         if (!checkPassword) return;
         startTransition(async () => {
-            const { errorMessage } = await updateUserPassword(formData);
+
+            const { errorMessage } = await updateUserPassword(formData, authCodeForExchangeSession!);
             if (errorMessage) {
-                toast.error(errorMessage);
+                toast.error(errorMessage, {
+                    position: "bottom-right",
+                    style: {
+                        background: "#ff0000",
+                        color: "#ffffff",
+                        animationDuration: "0.5s",
+                    },
+                })
+
             } else {
-                router.push('/set-new-password');
-                toast.success("Password reset email sent");
+                router.push('dashboard');
+                handleSuccess("Password changes successfully");
             }
         });
     }
@@ -46,7 +61,7 @@ export default function AuthComponent() {
         >
             <div className='mt-6 ml-20'>
                 <div className="-ml-10">
-                    <p className="font-roboto font-bold text-2xl">Trakiz</p>
+                    <p className="font-roboto font-bold text-2xl text-[#ffffff]">Trakiz</p>
                 </div>
                 <div className="mt-14 ml-10 mr-10 w-[488px] h-4/5 flex justify-center items-center">
                     <div className='w-full h-full'>
@@ -99,7 +114,7 @@ export default function AuthComponent() {
                                 </div>
                                 <input
                                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                    type='confirm-password'
+                                    type='password'
                                     name="confirm-password"
                                     className="block w-[470px] pl-12 pr-4 py-2 text-white bg-transparent placeholder:text-white border-b-2 border-[#e48700] font-manrope font-medium text-lg focus:outline-none focus:border-[#e48700]"
                                     placeholder="Re-type your Password"

@@ -7,14 +7,14 @@ export default function AuthComponent({ signInComponent }: { signInComponent: bo
         <div className="w-full h-full flex  bg-[#111010]">
             <div className='mt-10 ml-20'>
                 <div className="-ml-10">
-                    <p className="font-roboto font-bold text-2xl">Trakiz</p>
+                    <p className="font-roboto font-bold text-2xl text-[#ffffff]">Trakiz</p>
                 </div>
                 <div className="mt-12 ml-20 mr-18 w-[488px]">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col text-[#ffffff]">
                         <p className="font-poppins font-medium text-3xl">
                             {signInComponent ? 'Sign In' : 'Sign Up'}
                         </p>
-                        <div className="flex mt-5">
+                        <div className="flex mt-5 text-[#ffffff]">
                             {signInComponent ?
                                 (
                                     <p className="font-poppins font-normal text-base">

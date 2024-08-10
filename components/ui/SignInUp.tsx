@@ -80,7 +80,7 @@ export default function SignInUp({ signInComponent }: { signInComponent: boolean
             </div>
             <div className='flex w-[429px] justify-end mt-2'>
                 <Link href='/forgot-password'>
-                    <p className='font-poppins text-base hover:underline hover:cursor-pointer font-medium'>
+                    <p className='font-poppins text-[#ffffff] text-base hover:underline hover:cursor-pointer font-medium'>
                         Forgot password?
                     </p>
                 </Link>
