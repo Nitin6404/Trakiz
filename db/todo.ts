@@ -98,6 +98,22 @@ export const updateTodo = async (
   }
 };
 
+export const markTodoAsCompleted = async (
+  id: string
+): Promise<null | unknown> => {
+  try {
+    const { data, error } = await supabase
+      .from("todos")
+      .update({ column: "done" })
+      .eq("id", id);
+    if (error) throw error;
+    return null;
+  } catch (error) {
+    handleServerError(error);
+    return error;
+  }
+};
+
 export const moveTodo = async (
   id: string,
   newColumn: string

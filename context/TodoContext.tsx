@@ -36,6 +36,10 @@ const todoReducer = (state: TaskType[], action: { type: string, payload: Todo | 
         // An action for updating the title of a task
         case 'UPDATE_TITLE':
             return state.map(task => task.id === (action.payload as TaskType).id ? { ...task, title: (action.payload as TaskType).title } : task);
+        // An action for marking a task as completed
+        case 'MARK_AS_COMPLETED':
+            // Update the completed property of the task to true and send the task to Done column
+            return state.map(task => task.id === (action.payload as TaskType).id ? { ...task, column: (action.payload as TaskType).column, completed: true } : task);
         default:
             return state;
     }

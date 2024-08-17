@@ -4,31 +4,13 @@ import { CardProps, ColumnType, TaskType } from "@/components/KanbanComponents/T
 import { motion } from "framer-motion";
 import { CheckCircle, MoreVertical, Pencil, Trash2 } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { createTodo, deleteTodo, getTodos, moveTodo, updateTodo } from "@/db/todo";
+import { createTodo, deleteTodo, getTodos, markTodoAsCompleted, moveTodo, updateTodo } from "@/db/todo";
 import { handleError } from "@/lib/utils";
 
 export default function Card({ title, id, column, handleDragStart, tasks, dispatch }: CardProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(title);
     const [loading, setLoading] = useState(false);
-
-    // const handleUpdateTask = async (id: number, title: string, column: ColumnType) => {
-    //     try {
-    //         const todo = await updateTodo(id, title, column);
-    //         setTasks(tasks.map((task) => (task.id === id ? { ...task, title, column } : task)));
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
-    // const handleDeleteTask = async (id: number) => {
-    //     try {
-    //         await deleteTodo(id);
-    //         setTasks(tasks.filter((task) => task.id !== id));
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
 
     // const handleMoveTask = async (id: number, newColumn: ColumnType) => {
     //     try {
@@ -67,17 +49,47 @@ export default function Card({ title, id, column, handleDragStart, tasks, dispat
         }
     };
 
-    // const handleDelete = () => {
-    //     setTasks((prevtasks) => prevtasks.filter((card) => card.id !== id));
-    // };
+    const handleDelete = async () => {
+        try {
+            setLoading(true);
 
-    // const handleMarkAsCompleted = () => {
-    //     setTasks((prevtasks) =>
-    //         prevtasks.map((card) =>
-    //             card.id === id ? { ...card, column: "done" } : card
-    //         )
-    //     );
-    // };
+            // delete the task using the todo Id
+            const isError = await deleteTodo(id);
+            if (isError !== null) {
+                throw new Error("Failed to delete task. Please try again.");
+            }
+
+            // delete the task in the UI
+            const deletedTask = { id, title, column };
+            dispatch({ type: "DELETE_TASK", payload: deletedTask });
+        } catch (error) {
+            console.error(error);
+            handleError(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleMarkAsCompleted = async () => {
+        try {
+            setLoading(true);
+
+            // mark the task as completed using the todo Id
+            const isError = await markTodoAsCompleted(id);
+            if (isError !== null) {
+                throw new Error("Failed to mark task as completed. Please try again.");
+            }
+
+            // update the task in the UI
+            const updatedTask = { id, title, column: "done" as ColumnType };
+            dispatch({ type: "MARK_AS_COMPLETED", payload: updatedTask });
+        } catch (error) {
+            console.error(error);
+            handleError(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -124,7 +136,7 @@ export default function Card({ title, id, column, handleDragStart, tasks, dispat
                             <p className="text-sm text-neutral-100">{title}</p>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <button className="text-neutral-400" title="Button Text">
+                                    <button className="text-neutral-400" title="Show More">
                                         <MoreVertical size={16} />
                                     </button>
                                 </DropdownMenuTrigger>
@@ -137,14 +149,14 @@ export default function Card({ title, id, column, handleDragStart, tasks, dispat
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem
-                                    // onClick={handleDelete}
+                                        onClick={handleDelete}
                                     >
                                         <Trash2 className="mr-2 h-4 w-4" />
                                         <span>Delete ToDo</span>
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem
-                                    // onClick={handleMarkAsCompleted}
+                                        onClick={handleMarkAsCompleted}
                                     >
                                         <CheckCircle className="mr-2 h-4 w-4" />
                                         <span>Mark as Completed</span>
