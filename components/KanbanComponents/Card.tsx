@@ -8,6 +8,9 @@ import { createTodo, deleteTodo, getTodos, moveTodo, updateTodo } from "@/db/tod
 import { handleError } from "@/lib/utils";
 
 export default function Card({ title, id, column, handleDragStart, tasks, dispatch }: CardProps) {
+    const [isEditing, setIsEditing] = useState(false);
+    const [editText, setEditText] = useState(title);
+    const [loading, setLoading] = useState(false);
 
     // const handleUpdateTask = async (id: number, title: string, column: ColumnType) => {
     //     try {
@@ -36,23 +39,33 @@ export default function Card({ title, id, column, handleDragStart, tasks, dispat
     //     }
     // };
 
-    const [isEditing, setIsEditing] = useState(false);
-    const [editText, setEditText] = useState(title);
+    const handleSaveEdit = async () => {
+        try {
+            // if the editText is the same as the title, then show error as the user is trying to save the same text
+            if (editText === title) {
+                throw new Error("No changes made to the todo.");
+            }
+            setLoading(true);
 
-    // const handleSaveEdit = () => {
-    //     // if the text is empty, send client toast message "Todo cannot be empty"
-    //     if (editText.trim() === "") {
-    //         handleError(new Error("Todo cannot be empty"));
-    //         return;
-    //     }
+            // update the task with the new text using the todo Id
+            const isError = await updateTodo(id, editText, column);
+            if (isError !== null) {
+                throw new Error("Failed to update task. Please try again.");
+            }
 
-    //     setTasks((prevtasks) =>
-    //         prevtasks.map((card) =>
-    //             card.id === id ? { ...card, title: editText.trim() } : card
-    //         )
-    //     );
-    //     setIsEditing(false);
-    // };
+            // update the task in the UI
+            const updatedTask = { id, title: editText, column };
+            dispatch({ type: "UPDATE_TITLE", payload: updatedTask });
+
+            setIsEditing(false);
+            setEditText("");
+        } catch (error) {
+            console.error(error);
+            handleError(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     // const handleDelete = () => {
     //     setTasks((prevtasks) => prevtasks.filter((card) => card.id !== id));
@@ -65,6 +78,12 @@ export default function Card({ title, id, column, handleDragStart, tasks, dispat
     //         )
     //     );
     // };
+
+    if (loading) {
+        return (
+            <div className="animate-spin h-4 w-4 rounded-full border-t-2 border-b-2 border-neutral-50"></div>
+        );
+    }
 
     return (
         <>
@@ -92,7 +111,7 @@ export default function Card({ title, id, column, handleDragStart, tasks, dispat
                                 Cancel
                             </button>
                             <button
-                                // onClick={handleSaveEdit}
+                                onClick={handleSaveEdit}
                                 className="text-sm text-neutral-50"
                             >
                                 Save
@@ -111,7 +130,7 @@ export default function Card({ title, id, column, handleDragStart, tasks, dispat
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent className="w-56">
                                     <DropdownMenuItem
-                                    // onClick={() => setIsEditing(true)}
+                                        onClick={() => setIsEditing(true)}
                                     >
                                         <Pencil className="mr-2 h-4 w-4" />
                                         <span>Edit ToDo</span>

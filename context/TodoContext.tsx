@@ -21,14 +21,21 @@ const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 const todoReducer = (state: TaskType[], action: { type: string, payload: Todo | Todo[] }) => {
     switch (action.type) {
+        // Set the tasks array to the payload basically updating the tasks array
         case 'SET_TASKS':
             return Array.isArray(action.payload) ? action.payload : state;
+        // Add a new task to the tasks array
         case 'ADD_TASK':
             return [...state, action.payload as TaskType];
+        // Delete a task from the tasks array
         case 'DELETE_TASK':
             return state.filter(task => task.id !== (action.payload as TaskType).id);
+        // Update a task in the tasks array
         case 'MOVE_TASK':
             return state.map(task => task.id === (action.payload as TaskType).id ? { ...task, column: (action.payload as TaskType).column } : task);
+        // An action for updating the title of a task
+        case 'UPDATE_TITLE':
+            return state.map(task => task.id === (action.payload as TaskType).id ? { ...task, title: (action.payload as TaskType).title } : task);
         default:
             return state;
     }

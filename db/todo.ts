@@ -82,18 +82,19 @@ export const updateTodo = async (
   id: string,
   title: string,
   column: string
-): Promise<Todo | null> => {
+): Promise<null | unknown> => {
   try {
     const { data, error } = await supabase
       .from("todos")
       .update({ title, column })
-      .eq("id", id)
-      .select();
-    if (error) throw error;
-    return data[0] || null;
+      .eq("id", id);
+    if (error) {
+      throw error;
+    }
+    return null;
   } catch (error) {
     handleServerError(error);
-    return null;
+    return error;
   }
 };
 
@@ -115,17 +116,13 @@ export const moveTodo = async (
   }
 };
 
-export const deleteTodo = async (id: string): Promise<Todo | null> => {
+export const deleteTodo = async (id: string): Promise<null | unknown> => {
   try {
-    const { data, error } = await supabase
-      .from("todos")
-      .delete()
-      .eq("id", id)
-      .select();
+    const { data, error } = await supabase.from("todos").delete().eq("id", id);
     if (error) throw error;
-    return data[0] || null;
+    return null;
   } catch (error) {
     handleServerError(error);
-    return null;
+    return error;
   }
 };
