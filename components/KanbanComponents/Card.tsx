@@ -92,7 +92,7 @@ export default function Card({ title, id, column, handleDragStart, tasks, dispat
                                 Cancel
                             </button>
                             <button
-                                onClick={handleSaveEdit}
+                                // onClick={handleSaveEdit}
                                 className="text-sm text-neutral-50"
                             >
                                 Save
@@ -110,17 +110,23 @@ export default function Card({ title, id, column, handleDragStart, tasks, dispat
                                     </button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent className="w-56">
-                                    <DropdownMenuItem onClick={() => setIsEditing(true)}>
+                                    <DropdownMenuItem
+                                    // onClick={() => setIsEditing(true)}
+                                    >
                                         <Pencil className="mr-2 h-4 w-4" />
                                         <span>Edit ToDo</span>
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem onClick={handleDelete}>
+                                    <DropdownMenuItem
+                                    // onClick={handleDelete}
+                                    >
                                         <Trash2 className="mr-2 h-4 w-4" />
                                         <span>Delete ToDo</span>
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem onClick={handleMarkAsCompleted}>
+                                    <DropdownMenuItem
+                                    // onClick={handleMarkAsCompleted}
+                                    >
                                         <CheckCircle className="mr-2 h-4 w-4" />
                                         <span>Mark as Completed</span>
                                     </DropdownMenuItem>

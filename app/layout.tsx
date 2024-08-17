@@ -37,24 +37,25 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn("antialiased", fontHeading.variable, fontBody.variable)}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TodoProvider>{children}</TodoProvider>
-          <SpeedInsights />
-          <Analytics />
-          <Toaster
-            toastOptions={{
-              style: {
-                textAlign: "center",
-              },
-            }}
-          />
-        </ThemeProvider>
+      ><TodoProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <SpeedInsights />
+            <Analytics />
+            <Toaster
+              toastOptions={{
+                style: {
+                  textAlign: "center",
+                },
+              }}
+            />
+          </ThemeProvider>
+        </TodoProvider>
       </body>
     </html>
   );

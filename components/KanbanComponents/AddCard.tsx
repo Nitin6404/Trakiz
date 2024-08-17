@@ -6,13 +6,11 @@ import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { handleError } from "@/lib/utils";
 import { v4 as uuidv4 } from "uuid";
-import { useTodo } from "@/context/TodoContext"; // Import the useTodo hook
 
-export default function AddCard({ column }: AddCardProps) {
+export default function AddCard({ column, dispatch }: AddCardProps) {
     const [title, setTitle] = useState("");
     const [adding, setAdding] = useState(false);
     const [loading, setLoading] = useState(false);
-    const { tasks, dispatch } = useTodo();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

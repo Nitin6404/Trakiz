@@ -120,11 +120,11 @@ export default function Column({
                         {...c}
                         handleDragStart={handleDragStart}
                         tasks={tasks}
-                        setTasks={setTasks}
+                        dispatch={dispatch}
                     />;
                 })}
                 <DropIndicator column={column} />
-                <AddCard column={column} />
+                <AddCard dispatch={dispatch} column={column} />
             </div>
         </div>
     );

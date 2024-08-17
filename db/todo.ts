@@ -4,11 +4,12 @@ import { supabase } from "@/utils/supabaseClient";
 import { handleServerError } from "@/lib/utils";
 import { getUser } from "@/auth/server";
 import { redirect } from "next/navigation";
+import { ColumnType } from "@/components/KanbanComponents/TodosType";
 
 interface Todo {
   id: string;
   title: string;
-  column: string;
+  column: ColumnType;
   userId?: string;
 }
 
