@@ -4,6 +4,7 @@ import DropIndicator from "./DropIndicator";
 import AddCard from "./AddCard";
 import { ColumnProps, TaskType, DragEvent } from "./TodosType";
 import { moveTodo } from "@/db/todo";
+import { handleError } from "@/lib/utils";
 
 export default function Column({
     title,
@@ -16,30 +17,28 @@ export default function Column({
 
     const handleDragStart = (e: DragEvent, card: TaskType) => {
         e.dataTransfer.setData("cardId", card.id);
+        e.dataTransfer.setData("column", card.column);
+        e.dataTransfer.setData("title", card.title);
     };
 
     const handleDragEnd = async (e: DragEvent) => {
-        const cardId = e.dataTransfer.getData("cardId");
-        const card = tasks.find((task) => task.id === cardId);
-
         setActive(false);
         clearHighlights();
-
-        const indicators = getIndicators();
-        const { element } = getNearestIndicator(e, indicators);
-
-        const before = element.dataset.before || "-1";
-        const moveToBack = before === "-1";
-
-        if (card && card.column !== column) {
-            try {
-                const updatedCard = await moveTodo(cardId, column);
-                if (updatedCard) {
-                    dispatch({ type: "MOVE_TASK", payload: updatedCard });
-                }
-            } catch (error) {
-                console.error(error);
+        const cardId = e.dataTransfer.getData("cardId");
+        const title = e.dataTransfer.getData("title");
+        const cardOldColumn = e.dataTransfer.getData("column");
+        try {
+            if (cardOldColumn === column) return;
+            const newColumn = column;
+            const isError = await moveTodo(cardId, newColumn);
+            if (isError !== null) {
+                throw new Error("Failed to move task. Please try again.");
             }
+            const updatedTask = { id: cardId, title, column: newColumn };
+            dispatch({ type: "MOVE_TASK", payload: updatedTask });
+        } catch (error) {
+            console.error(error);
+            handleError(error);
         }
     };
 
@@ -119,7 +118,6 @@ export default function Column({
                         key={c.id}
                         {...c}
                         handleDragStart={handleDragStart}
-                        tasks={tasks}
                         dispatch={dispatch}
                     />;
                 })}

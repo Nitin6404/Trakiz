@@ -117,7 +117,7 @@ export const markTodoAsCompleted = async (
 export const moveTodo = async (
   id: string,
   newColumn: string
-): Promise<Todo | null> => {
+): Promise<null | unknown> => {
   try {
     const { data, error } = await supabase
       .from("todos")
@@ -125,10 +125,10 @@ export const moveTodo = async (
       .eq("id", id)
       .select();
     if (error) throw error;
-    return data[0] || null;
+    return null;
   } catch (error) {
     handleServerError(error);
-    return null;
+    return error;
   }
 };
 

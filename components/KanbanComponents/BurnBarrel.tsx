@@ -1,15 +1,16 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { TaskType, DragEvent } from "./TodosType";
 import { Flame, Trash2 } from "lucide-react";
+import { useTodo } from "@/context/TodoContext";
+import { deleteTodo } from "@/db/todo";
+import { handleError } from "@/lib/utils";
 
 
 
-export default function BurnBarrel({
-    setTasks,
-}: {
-    setTasks: Dispatch<SetStateAction<TaskType[]>>;
-}) {
+export default function BurnBarrel() {
+    const { tasks, dispatch } = useTodo();
     const [active, setActive] = useState(false);
+
 
     const handleDragOver = (e: DragEvent) => {
         e.preventDefault();
@@ -20,10 +21,22 @@ export default function BurnBarrel({
         setActive(false);
     };
 
-    const handleDragEnd = (e: DragEvent) => {
+    const handleDragEnd = async (e: DragEvent) => {
         const cardId = e.dataTransfer.getData("cardId");
         setActive(false);
-        setTasks((prevTasks) => prevTasks.filter((card) => card.id !== cardId));
+        try {
+            // delete the task using the todo Id in DATABASE
+            const isError = await deleteTodo(cardId);
+            if (isError !== null) {
+                throw new Error("Failed to delete task. Please try again.");
+            }
+            // delete the task in the UI
+            const deletedTask = tasks.find((task) => task.id === cardId);
+            dispatch({ type: "DELETE_TASK", payload: deletedTask });
+        } catch (error) {
+            console.error(error);
+            handleError(error);
+        }
     };
 
     return (

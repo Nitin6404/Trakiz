@@ -20,7 +20,7 @@ export default function Board() {
                     dispatch={dispatch}
                 />
             ))}
-            <BurnBarrel setTasks={(newTasks) => dispatch({ type: 'SET_TASKS', payload: newTasks })} />
+            <BurnBarrel />
         </div>
     );
 }

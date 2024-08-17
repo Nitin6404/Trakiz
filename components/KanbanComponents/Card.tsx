@@ -1,25 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DropIndicator from "@/components/KanbanComponents/DropIndicator";
-import { CardProps, ColumnType, TaskType } from "@/components/KanbanComponents/TodosType";
+import { CardProps, ColumnType } from "@/components/KanbanComponents/TodosType";
 import { motion } from "framer-motion";
 import { CheckCircle, MoreVertical, Pencil, Trash2 } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { createTodo, deleteTodo, getTodos, markTodoAsCompleted, moveTodo, updateTodo } from "@/db/todo";
+import { deleteTodo, markTodoAsCompleted, updateTodo } from "@/db/todo";
 import { handleError } from "@/lib/utils";
 
-export default function Card({ title, id, column, handleDragStart, tasks, dispatch }: CardProps) {
+export default function Card({ title, id, column, handleDragStart, dispatch }: CardProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(title);
     const [loading, setLoading] = useState(false);
-
-    // const handleMoveTask = async (id: number, newColumn: ColumnType) => {
-    //     try {
-    //         const todo = await moveTodo(id, newColumn);
-    //         setTasks(tasks.map((task) => (task.id === id ? { ...task, column: newColumn } : task)));
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
 
     const handleSaveEdit = async () => {
         try {

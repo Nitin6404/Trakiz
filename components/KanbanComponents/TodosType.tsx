@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
-
+import { Dispatch } from "react";
 
 export type ColumnProps = {
     title: string;
@@ -9,28 +8,19 @@ export type ColumnProps = {
     dispatch: Dispatch<{ type: string, payload: TaskType | TaskType[] }>;
 };
 
-
-
 export type CardProps = TaskType & {
     handleDragStart: Function;
-    tasks: TaskType[];
     dispatch: Dispatch<{ type: string, payload: TaskType | TaskType[] }>;
 };
-
-// Card component with edit functionality
 
 export type DropIndicatorProps = {
     column: string;
 };
 
-
-
-
 export type AddCardProps = {
     column: ColumnType;
     dispatch: Dispatch<{ type: string, payload: TaskType | TaskType[] }>; // Ensure this is always defined
 };
-
 
 export type ColumnType = "backlog" | "todo" | "doing" | "done";
 
