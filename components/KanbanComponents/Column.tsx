@@ -10,7 +10,7 @@ export default function Column({
     headingColor,
     tasks,
     column,
-    setTasks,
+    dispatch,
 }: ColumnProps) {
     const [active, setActive] = useState(false);
 
@@ -34,11 +34,9 @@ export default function Column({
         if (card && card.column !== column) {
             try {
                 const updatedCard = await moveTodo(cardId, column);
-                setTasks((prevTasks) =>
-                    prevTasks.map((task) =>
-                        task.id === cardId ? { ...task, column } : task
-                    )
-                );
+                if (updatedCard) {
+                    dispatch({ type: "MOVE_TASK", payload: updatedCard });
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -126,7 +124,7 @@ export default function Column({
                     />;
                 })}
                 <DropIndicator column={column} />
-                <AddCard column={column} tasks={tasks} setTasks={setTasks} />
+                <AddCard column={column} />
             </div>
         </div>
     );

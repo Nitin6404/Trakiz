@@ -5,32 +5,47 @@ import { AddCardProps, TaskType } from "./TodosType";
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { handleError } from "@/lib/utils";
+import { v4 as uuidv4 } from "uuid";
+import { useTodo } from "@/context/TodoContext"; // Import the useTodo hook
 
-export default function AddCard({ column, tasks, setTasks }: AddCardProps) {
+export default function AddCard({ column }: AddCardProps) {
     const [title, setTitle] = useState("");
     const [adding, setAdding] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const { tasks, dispatch } = useTodo();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        setError(null);
         try {
             if (title.trim() === "") {
-                handleError(new Error("Title is required"));
+                handleError(new Error("Todo cannot be empty"));
                 return;
             }
-            const newTask = await createTodo(title, column);
-            setTasks((prevTasks) => [...prevTasks, newTask as TaskType]);
+            // Long id is generated using uuidv4
+            const id = uuidv4();
+            const isError = await createTodo(id, title, column);
+            if (isError !== null) {
+                throw new Error("Failed to create task. Please try again.");
+            }
+            const newTask = { id, title, column };
+            // add new task to the tasks array, immediately new task will be shown in the UI
+            dispatch({ type: "ADD_TASK", payload: newTask });
+            setAdding(false);
             setTitle("");
         } catch (error) {
             console.error(error);
-            setError("Failed to create task. Please try again.");
+            handleError(error);
         } finally {
             setLoading(false);
         }
     };
+
+    if (loading) {
+        return (
+            <div className="animate-spin h-4 w-4 rounded-full border-t-2 border-b-2 border-neutral-50"></div>
+        );
+    }
 
     return (
         <>

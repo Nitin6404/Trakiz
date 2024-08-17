@@ -6,7 +6,7 @@ export type ColumnProps = {
     headingColor: string;
     tasks: TaskType[];
     column: ColumnType;
-    setTasks: Dispatch<SetStateAction<TaskType[]>>;
+    dispatch: Dispatch<{ type: string, payload: TaskType[] }>;
 };
 
 
@@ -14,7 +14,7 @@ export type ColumnProps = {
 export type CardProps = TaskType & {
     handleDragStart: Function;
     tasks: TaskType[];
-    setTasks: Dispatch<SetStateAction<TaskType[]>>;
+    dispatch: Dispatch<{ type: string, payload: TaskType[] }>;
 };
 
 // Card component with edit functionality
@@ -29,7 +29,7 @@ export type DropIndicatorProps = {
 export type AddCardProps = {
     column: ColumnType;
     tasks: TaskType[];
-    setTasks: Dispatch<SetStateAction<TaskType[]>>;
+    setTasks: Dispatch<{ type: string, payload: TaskType[] }>; // Ensure this is always defined
 };
 
 
@@ -39,6 +39,7 @@ export type TaskType = {
     title: string;
     id: string;
     column: ColumnType;
+    userId?: string;
 };
 
 export interface DragEvent {

@@ -17,7 +17,7 @@ export default function Board() {
                     column={column as ColumnType}
                     headingColor={`text-${column}-200`}
                     tasks={tasks.filter(task => task.column === column)}
-                    setTasks={(newTasks) => dispatch({ type: 'SET_TASKS', payload: newTasks })}
+                    dispatch={dispatch}
                 />
             ))}
             <BurnBarrel setTasks={(newTasks) => dispatch({ type: 'SET_TASKS', payload: newTasks })} />

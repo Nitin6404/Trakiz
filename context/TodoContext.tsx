@@ -4,15 +4,22 @@ import { ColumnType, TaskType } from "@/components/KanbanComponents/TodosType";
 import { getTodos } from "@/db/todo"; // Import the getTodos function
 import { Dispatch } from "react";
 
+type Todo = {
+    id: string;
+    title: string;
+    column: ColumnType;
+    userId?: string;
+}
+
 type TodoContextType = {
-    tasks: TaskType[];
-    dispatch: Dispatch<{ type: string, payload: TaskType | TaskType[] }>;
+    tasks: Todo[];
     loading: boolean;
+    dispatch: React.Dispatch<any>;
 };
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
-const todoReducer = (state: TaskType[], action: { type: string, payload: TaskType | TaskType[] }) => {
+const todoReducer = (state: TaskType[], action: { type: string, payload: Todo | Todo[] }) => {
     switch (action.type) {
         case 'SET_TASKS':
             return Array.isArray(action.payload) ? action.payload : state;

@@ -5,8 +5,9 @@ import { motion } from "framer-motion";
 import { CheckCircle, MoreVertical, Pencil, Trash2 } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { createTodo, deleteTodo, getTodos, moveTodo, updateTodo } from "@/db/todo";
+import { handleError } from "@/lib/utils";
 
-export default function Card({ title, id, column, handleDragStart, tasks, setTasks }: CardProps) {
+export default function Card({ title, id, column, handleDragStart, tasks, dispatch }: CardProps) {
 
     // const handleUpdateTask = async (id: number, title: string, column: ColumnType) => {
     //     try {
@@ -38,28 +39,32 @@ export default function Card({ title, id, column, handleDragStart, tasks, setTas
     const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(title);
 
-    const handleSaveEdit = () => {
-        if (!editText.trim().length) return;
+    // const handleSaveEdit = () => {
+    //     // if the text is empty, send client toast message "Todo cannot be empty"
+    //     if (editText.trim() === "") {
+    //         handleError(new Error("Todo cannot be empty"));
+    //         return;
+    //     }
 
-        setTasks((prevtasks) =>
-            prevtasks.map((card) =>
-                card.id === id ? { ...card, title: editText.trim() } : card
-            )
-        );
-        setIsEditing(false);
-    };
+    //     setTasks((prevtasks) =>
+    //         prevtasks.map((card) =>
+    //             card.id === id ? { ...card, title: editText.trim() } : card
+    //         )
+    //     );
+    //     setIsEditing(false);
+    // };
 
-    const handleDelete = () => {
-        setTasks((prevtasks) => prevtasks.filter((card) => card.id !== id));
-    };
+    // const handleDelete = () => {
+    //     setTasks((prevtasks) => prevtasks.filter((card) => card.id !== id));
+    // };
 
-    const handleMarkAsCompleted = () => {
-        setTasks((prevtasks) =>
-            prevtasks.map((card) =>
-                card.id === id ? { ...card, column: "done" } : card
-            )
-        );
-    };
+    // const handleMarkAsCompleted = () => {
+    //     setTasks((prevtasks) =>
+    //         prevtasks.map((card) =>
+    //             card.id === id ? { ...card, column: "done" } : card
+    //         )
+    //     );
+    // };
 
     return (
         <>
