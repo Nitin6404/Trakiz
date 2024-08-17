@@ -40,7 +40,7 @@ export default function RootLayout({
       ><TodoProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >
