@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/component/theme-provider";
+import { TodoProvider } from "@/context/TodoContext";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Providers } from '@/app/providers'
@@ -39,11 +40,11 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <TodoProvider>{children}</TodoProvider>
           <SpeedInsights />
           <Analytics />
           <Toaster

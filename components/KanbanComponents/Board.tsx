@@ -1,30 +1,10 @@
 import BurnBarrel from "@/components/KanbanComponents/BurnBarrel";
 import Column from "@/components/KanbanComponents/Column";
-import { useEffect, useState } from "react";
-import { ColumnType, TaskType } from "./TodosType";
-import { getTodos } from "@/db/todo"
+import { useTodo } from "@/context/TodoContext"; // Import the custom hook
+import { ColumnType } from "./TodosType";
 
 export default function Board() {
-    const [tasks, setTasks] = useState<TaskType[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchTodos = async () => {
-            try {
-                const todos = await getTodos();
-                const convertedTasks = todos.map(todo => ({
-                    ...todo,
-                    column: todo.column as ColumnType
-                }));
-                setTasks(convertedTasks);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchTodos();
-    }, []);
+    const { tasks, loading, dispatch } = useTodo();
 
     if (loading) return <div>Loading...</div>;
 
@@ -36,12 +16,11 @@ export default function Board() {
                     title={column.charAt(0).toUpperCase() + column.slice(1)}
                     column={column as ColumnType}
                     headingColor={`text-${column}-200`}
-                    tasks={tasks}
-                    setTasks={setTasks}
-
+                    tasks={tasks.filter(task => task.column === column)}
+                    setTasks={(newTasks) => dispatch({ type: 'SET_TASKS', payload: newTasks })}
                 />
             ))}
-            <BurnBarrel setTasks={setTasks} />
+            <BurnBarrel setTasks={(newTasks) => dispatch({ type: 'SET_TASKS', payload: newTasks })} />
         </div>
     );
-};
+}
