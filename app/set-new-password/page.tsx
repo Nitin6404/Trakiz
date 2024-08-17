@@ -22,7 +22,14 @@ function PasswordForm() {
     const checkPassword = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (password !== confirmPassword) {
-            toast.error("Passwords do not match");
+            toast.error("Password do not match", {
+                position: "bottom-right",
+                style: {
+                    background: "#ff0000",
+                    color: "#ffffff",
+                    animationDuration: "0.5s",
+                },
+            });
             return false;
         }
         return true;
